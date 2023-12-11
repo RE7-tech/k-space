@@ -54,7 +54,7 @@ export default function SupportingDocumentViewerModal({
         }
 
         if (part?.mimetype?.startsWith('image')) {
-            return <img src={`data:${part?.mimetype};base64,${part?.base64}`} className="w-full h-full object-contain" />
+            return <img src={`data:${part?.mimetype};base64,${part?.base64}`} alt="part view" className="w-full h-full object-contain" />
         }
 
         if (part?.mimetype?.startsWith('application/pdf')) {

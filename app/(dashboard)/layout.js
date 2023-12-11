@@ -2,7 +2,7 @@
 
 import DesktopLayout from "@/components/DesktopLayout";
 import MobileLayout from "@/components/MobileLayout";
-import isAuth from "@/components/isAuth";
+import NeedAuthentification from "@/components/NeedAuthentification";
 import config from "@/utils/config";
 import { useViewport } from "react-viewport-hooks";
 
@@ -27,4 +27,4 @@ const DashboardLayout = ({ children }) => {
   );
 }
 
-export default isAuth(DashboardLayout);
+export default NeedAuthentification(DashboardLayout);

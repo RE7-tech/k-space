@@ -383,7 +383,7 @@ export default function SupportingDocumentModal({ supportingDocument, policy, on
 
                         <div className="flex items-center justify-center mx-auto max-h-[400px] overflow-y-auto">
 
-                            <img src={`${fusionUrl}`} alt="" />
+                            <img src={`${fusionUrl}`} alt="resulat de la fusion" />
 
                         </div>
 

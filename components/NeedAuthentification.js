@@ -5,8 +5,8 @@ import { redirect } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 
 
-export default function isAuth (Component) {
-  return function isAuth(props) {
+export default function NeedAuthentification (Component) {
+  return function NeedAuthentification(props) {
     const auth = useAuth()
 
     useEffect(() => {

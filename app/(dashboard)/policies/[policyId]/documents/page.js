@@ -65,7 +65,7 @@ export default function Documents({ params }) {
 
     useEffect(() => {
         setCategorizedDocuments(getCategorizedDocuments());
-    }, [policyDocuments]);
+    }, [policyDocuments, getCategorizedDocuments]);
 
     return <>
         <Page>
