@@ -83,7 +83,7 @@ export default function Sidebar({ onNewQuote, isAnimated = true }) {
             {/* Logo */}
             <div className="flex items-center justify-start py-12 px-5">
                 <Link href="/">
-                    <img src="/logo.svg" alt="Logo" className="hover:opacity-80 transition-opacity cursor-pointer" />
+                    <Image src="/logo.svg" alt="Logo" className="hover:opacity-80 transition-opacity cursor-pointer" />
                 </Link>
             </div>
 

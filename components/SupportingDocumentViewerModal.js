@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import download from 'downloadjs';
+import Image from 'next/image';
 
 export default function SupportingDocumentViewerModal({
     policy,
@@ -54,7 +55,7 @@ export default function SupportingDocumentViewerModal({
         }
 
         if (part?.mimetype?.startsWith('image')) {
-            return <img src={`data:${part?.mimetype};base64,${part?.base64}`} alt="part view" className="w-full h-full object-contain" />
+            return <Image src={`data:${part?.mimetype};base64,${part?.base64}`} alt="part view" className="w-full h-full object-contain" />
         }
 
         if (part?.mimetype?.startsWith('application/pdf')) {
