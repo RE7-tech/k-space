@@ -9,6 +9,7 @@ import { faTimes, faCheckCircle, faSpinner } from "@fortawesome/free-solid-svg-i
 import { SelectedFile } from "./FileUploader";
 import Alert from "./Alert";
 import makeFusion from "@/lib/api/utils";
+import Image from "next/image";
 
 export function SupportingDocumentChoice({ choice, onClick }) {
     return <>
@@ -383,7 +384,8 @@ export default function SupportingDocumentModal({ supportingDocument, policy, on
 
                         <div className="flex items-center justify-center mx-auto max-h-[400px] overflow-y-auto">
 
-                            <img src={`${fusionUrl}`} alt="resulat de la fusion" />
+                            {/* <img src={`${fusionUrl}`} alt="resulat de la fusion" /> */}
+                            <Image src={`${fusionUrl}`} alt="resulat de la fusion" width={"auto"} height={"auto"} />
 
                         </div>
 
