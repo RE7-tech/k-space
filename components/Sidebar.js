@@ -82,7 +82,9 @@ export default function Sidebar({ onNewQuote, isAnimated = true }) {
 
             {/* Logo */}
             <div className="flex items-center justify-start py-12 px-5">
-                <img src="/logo.svg" alt="Logo" />
+                <Link href="/">
+                    <img src="/logo.svg" alt="Logo" className="hover:opacity-80 transition-opacity cursor-pointer" />
+                </Link>
             </div>
 
             {/* Navigation */}
@@ -138,7 +140,7 @@ export default function Sidebar({ onNewQuote, isAnimated = true }) {
                             Messenger
                         </span>
                     </Link>
-                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1`} onClick={() => window.open(`tel:${config?.infos?.prettyPhone ?? "02 78 84 84 84"}`, '_blank')}>
+                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1`} onClick={() => window.open(`tel:${config?.infos?.rawPhone ?? "0278848484"}`, '_blank')}>
                         <FontAwesomeIcon icon={faPhoneVolume} width={25} height={13} />
                         <span>
                             {config?.infos?.prettyPhone ?? "02 78 84 84 84"}

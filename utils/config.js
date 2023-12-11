@@ -12,6 +12,13 @@ const config = {
         lg: 1024,
         xl: 1280,
     },
+    infos: {
+        prettyPhone: '02 78 84 84 84',
+        rawPhone: '0278848484',
+        facebookPageId: 'klianfr',
+        whatsappNumber: '33756788584',
+        email: 'contact@klian.fr'
+    }
 }
 
 export default config
