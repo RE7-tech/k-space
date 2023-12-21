@@ -6,6 +6,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import PolicyBadge from "./PolicyBadge";
 import { useViewport } from "react-viewport-hooks";
 import config from "@/utils/config";
+import { statusLabelMappping } from "@/utils/policies";
 
 export default function PolicyCard({ policy, onClick, className }) {
 
@@ -16,8 +17,8 @@ export default function PolicyCard({ policy, onClick, className }) {
     if (vw < config.breakpoints.md) {
         return <>
             <div onClick={onClick} className={`relative bg-white rounded-lg border-2 border-gray-200 p-4 gap-4 flex flex-col items-center justify-between cursor-pointer hover:bg-gray-100 ${className ?? ''}`}>
-                <div className="absolute top-0 right-0 bg-success-dark text-white px-2 py-1 rounded-bl-lg rounded-tr-lg uppercase text-xs font-bold">
-                    En cours
+                <div className={`absolute top-0 right-0 ${policy?.status === 'active' ? 'success-dark' : 'blue-500'} text-white px-2 py-1 rounded-bl-lg rounded-tr-lg uppercase text-xs font-bold`}>
+                    {ucfirst(statusLabelMappping[policy?.status ?? 'pending']) ?? statusLabelMappping['default']}
                 </div>
                 
                 <div className="flex items-center justify-between mb-2 w-full">
