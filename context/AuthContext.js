@@ -4,13 +4,11 @@ import React, { createContext, useState } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { getLoggedInUser } from '@/lib/api/users';
-import useAccessToken from '@/hooks/useAccessToken';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
-    const accessToken = useAccessToken();
 
     const login = () => {
 
@@ -42,6 +40,8 @@ export const AuthProvider = ({ children }) => {
 
     const checkIfTokenIsInUrl = async () => {
         try {
+            const accessToken = new URLSearchParams(window.location.search).get('access_token');
+
             if (accessToken) {
                 sessionStorage.setItem('auth_token', accessToken);
                 // sleep 100ms to wait for the token to be saved
