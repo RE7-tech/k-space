@@ -40,10 +40,10 @@ export const AuthProvider = ({ children }) => {
 
     const checkIfTokenIsInUrl = async () => {
         try {
-            const accessToken = new URLSearchParams(window.location.search).get('access_token');
+            const accessToken = new URLSearchParams(window.location.search).get('access_token'); 
 
             if (accessToken) {
-                sessionStorage.setItem('auth_token', accessToken);
+                localStorage.setItem('auth_token', accessToken);
                 // sleep 100ms to wait for the token to be saved
                 await new Promise((resolve) => setTimeout(resolve, 100));
             }
