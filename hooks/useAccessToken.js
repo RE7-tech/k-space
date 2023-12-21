@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation';
 
 const useAccessToken = () => {
     const router = useRouter();
-    const accessToken = router.query?.accessToken ?? null;
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const accessToken = urlParams.get('access_token');
 
     return accessToken;
 };
