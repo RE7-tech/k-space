@@ -10,6 +10,6 @@ export default function Quote ({ params }) {
     const quoteId = params?.quoteId;
 
     return <>
-        <iframe src={'https://souscription.klian.fr/offers/' + quoteId} className="w-full h-full" />
+        <iframe src={'https://souscription.klian.fr/offers/' + quoteId + '?display_mode=iframe&utm_source=customer_space'} className="w-full h-full" />
     </>
 }

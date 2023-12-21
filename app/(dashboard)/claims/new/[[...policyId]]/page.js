@@ -168,6 +168,20 @@ export default function NewClaim({ children, params = {} }) {
                 return acc;
             }, {});
 
+            // The claim date and hour must be in the past
+            const claimDate = new Date(claim?.claimDate);
+            const claimHour = new Date(claim?.claimHour);
+
+            const now = new Date();
+
+            if (claimDate > now) {
+                newErrors.claimDate = 'La date du sinistre doit être dans le passé';
+            }
+
+            if (claimDate > now && claimHour > now) {
+                newErrors.claimHour = 'La date et l\'heure du sinistre doivent être dans le passé';
+            }
+
         }
 
         if (currentStep === 1) {
@@ -373,6 +387,15 @@ export default function NewClaim({ children, params = {} }) {
             }, 2000);
         }
     }, [isSaved]);
+
+    useEffect(() => {
+
+        // change the url when the policy changes
+        if (claim.policyId) {
+            router.replace('/claims/new/' + claim.policyId);
+        }
+
+    }, [claim.policyId]);
 
     console.log('claim', claim, errors, documents);
 
