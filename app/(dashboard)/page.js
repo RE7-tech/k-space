@@ -94,8 +94,10 @@ export default function Home() {
                   </Link>
                 </div>
               </>} sizeMode={'adaptive'}>
-                <div className="flex justify-center items-center mb-4 gap-4">
-                  {(policies ?? []).map((policy, idx) => <PolicySmallCard key={idx} policy={policy} onClick={() => handlePolicyClick(policy)} />)}
+                <div className="flex justify-center items-center mb-4 gap-4 overflow-x-auto">
+
+                  {(policies ?? []).filter((policy, idx) => idx < 3).map((policy, idx) => <PolicySmallCard key={idx} policy={policy} onClick={() => handlePolicyClick(policy)} />)}
+
                   {policies?.length === 0 ? <div className="flex flex-col items-center justify-center gap-4 text-center">
                     Vous n'avez pas de contrat en cours.
                   </div> : null}
