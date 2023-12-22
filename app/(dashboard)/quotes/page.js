@@ -20,7 +20,13 @@ export default function Quotes({ params }) {
     let { quotes, isLoading, isError } = useQuotes({ customer_id: customer?.id });
 
     const handleQuoteClick = (quote) => {
-        const redirectUrl = config?.app?.subscriptionUrl + '/offers/' + quote.id;
+
+        if (['converted', 'expired'].includes(quote?.status)) {
+            alert('Ce devis a déjà été converti en contrat ou a expiré');
+            return;
+        }
+
+        const redirectUrl = config?.app?.subscriptionUrl + '/offres/' + quote.id;
 
         window.open(redirectUrl, '_blank');
     }
