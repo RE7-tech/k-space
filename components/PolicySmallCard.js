@@ -10,11 +10,11 @@ export default function PolicySmallCard({ policy, isBordered = false, onClick })
     const { vw, vh } = useViewport();
 
     const getInfo1 = () => {
-        return policy?.fields?.brand + ' ' + policy?.fields?.model ?? '';
+        return policy?.summary?.primary;
     }
 
     const getInfo2 = () => {
-        return policy?.fields?.license_plate ?? '';
+        return policy?.summary?.secondary;
     }
 
     if (vw < config.breakpoints.md) {

@@ -29,16 +29,12 @@ export default function QuoteCard({ quote, onClick }) {
 
                     <div className="flex flex-col gap-2">
                         <h4 className="text-xl font-bold text-blue-900">
-                            {ucfirst(quote?.product?.type ?? '...')} - {ucfirst(quote?.formula?.name ?? '...')}
+                            {quote?.summary?.primary ?? '...'}
                         </h4>
 
                         <div className="text-blue-800 text-xl">
                             <div className="text-blue-800 text-xl">
-                                {["home", "mrh"].includes(quote?.product?.type) ? <>
-                                    {quote?.fields?.address ?? '...'}
-                                </> : <>
-                                    {formatLicensePlate(quote?.fields?.license_plate) ?? '...'}
-                                </>}
+                                {quote?.summary?.secondary ?? '...'}
                             </div>
                         </div>
                     </div>
@@ -97,12 +93,12 @@ export default function QuoteCard({ quote, onClick }) {
 
                             <div className="flex flex-col gap-2">
                                 <h4 className="text-xl font-bold text-blue-900">
-                                    {ucfirst(quote?.product?.type) ?? '...'} - {ucfirst(quote?.formula?.name) ?? '...'}
+                                    {quote?.summary?.primary ?? '...'}
                                 </h4>
 
                                 <div className="text-blue-800 text-xl">
                                     <div className="text-blue-800 text-xl">
-                                        {formatLicensePlate(quote?.fields?.license_plate) ?? '...'}
+                                        {quote?.summary?.secondary ?? '...'}
                                     </div>
                                 </div>
                             </div>

@@ -37,12 +37,12 @@ export default function PolicyCard({ policy, onClick, className }) {
 
                     <div className="flex flex-col gap-2">
                         <h4 className="text-xl font-bold text-blue-900">
-                            {ucfirst(policy?.product?.type) ?? '...'} - {ucfirst(policy?.formula?.name) ?? '...'}
+                            {policy?.summary?.primary ?? '...'}
                         </h4>
 
                         <div className="text-blue-800 text-xl">
                             <div className="text-blue-800 text-xl">
-                                {formatLicensePlate(policy?.fields?.license_plate) ?? '...'}
+                                {policy?.summary?.secondary ?? '...'}
                             </div>
                         </div>
                     </div>
@@ -74,12 +74,12 @@ export default function PolicyCard({ policy, onClick, className }) {
 
                             <div className="flex flex-col gap-2">
                                 <h4 className="text-xl font-bold text-blue-900">
-                                    {ucfirst(policy?.product?.type) ?? '...'} - {ucfirst(policy?.formula?.name) ?? '...'}
+                                    {policy.summary?.primary ?? '...'}
                                 </h4>
 
                                 <div className="text-blue-800 text-xl">
                                     <div className="text-blue-800 text-xl">
-                                        {formatLicensePlate(policy?.fields?.license_plate) ?? '...'}
+                                        {policy.summary?.secondary ?? '...'}
                                     </div>
                                 </div>
                             </div>

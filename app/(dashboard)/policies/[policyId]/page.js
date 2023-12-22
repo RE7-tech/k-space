@@ -100,10 +100,10 @@ export default function Policy({ params }) {
                     <div className="flex flex-col justify-center items-center gap-1 w-full">
                         <Image src={productIcons[policy?.product?.type]} width={64} height={64} className="mb-4" alt="product icon" />
                         <h3 className="text-2xl font-bold">
-                            {ucfirst(policy?.fields?.brand ?? '...')} - {ucfirst(policy?.fields?.model ?? '...')}
+                            {policy?.summary?.primary}
                         </h3>
                         <p className="text-gray-500 text-xl">
-                            {formatLicensePlate(policy?.fields?.license_plate ?? '...')}
+                            {policy?.summary?.secondary}
                         </p>
                         <div className="flex flex-row justify-around w-full gap-2 mt-6">
 
