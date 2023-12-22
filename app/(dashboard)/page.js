@@ -93,7 +93,7 @@ export default function Home() {
                     Voir tout
                   </Link>
                 </div>
-              </>} sizeMode={'adaptive'}>
+              </>}>
                 <div className="flex justify-center items-center mb-4 gap-4 overflow-x-auto">
 
                   {(policies ?? []).filter((policy, idx) => idx < 3).map((policy, idx) => <PolicySmallCard key={idx} policy={policy} onClick={() => handlePolicyClick(policy)} />)}
@@ -125,7 +125,7 @@ export default function Home() {
                 </div>
               </>}>
                 <div className="flex flex-col gap-4">
-                  {(quotes ?? []).map((quote, idx) => <QuoteSmallCard key={idx} quote={quote} onClick={() => handleQuoteClick(quote)} />)}
+                  {(quotes ?? []).filter((quote, idx) => idx < 3).map((quote, idx) => <QuoteSmallCard key={idx} quote={quote} onClick={() => handleQuoteClick(quote)} />)}
                   {quotes?.length === 0 ? <div className="flex flex-col items-center justify-center gap-4">
                     Vous n'avez pas de devis en cours.
                   </div> : null}

@@ -34,7 +34,11 @@ export default function QuoteCard({ quote, onClick }) {
 
                         <div className="text-blue-800 text-xl">
                             <div className="text-blue-800 text-xl">
-                                {formatLicensePlate(quote?.fields?.license_plate) ?? '...'}
+                                {["home", "mrh"].includes(quote?.product?.type) ? <>
+                                    {quote?.fields?.address ?? '...'}
+                                </> : <>
+                                    {formatLicensePlate(quote?.fields?.license_plate) ?? '...'}
+                                </>}
                             </div>
                         </div>
                     </div>
