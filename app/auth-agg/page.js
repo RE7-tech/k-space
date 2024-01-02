@@ -18,11 +18,12 @@ export default function AuthAgg({ params }) {
 
     if (!quoteId) {
         router.push('/auth/login');
-        return null;
     }
 
     useEffect(() => {
-        window.location.href = config.app.subscriptionUrl + '/offres/' + quoteId + '?utm_source=' + utmSource + '&utm_medium=' + utmMedium + '&utm_campaign=' + utmCampaign + '&utm_content=' + utmContent + '&utm_term=' + utmTerm;
+        if (quoteId) {
+            window.location.href = config.app.subscriptionUrl + '/offres/' + quoteId + '?utm_source=' + utmSource + '&utm_medium=' + utmMedium + '&utm_campaign=' + utmCampaign + '&utm_content=' + utmContent + '&utm_term=' + utmTerm;
+        }
     }, []);
 
     return <>
