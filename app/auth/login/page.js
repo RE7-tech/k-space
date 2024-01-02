@@ -94,11 +94,11 @@ export default function Login({ params }) {
                     Se connecter
                 </Button>
 
-                <div className="flex flex-row justify-center gap-2 mt-16">
+                {/* <div className="flex flex-row justify-center gap-2 mt-16">
                     <Link href="/auth/forgot-password" className="text-blue-800 underline underline-offset-[3px]" >
                         Mot de passe oublié ?
                     </Link>
-                </div>
+                </div> */}
 
             </div>
 

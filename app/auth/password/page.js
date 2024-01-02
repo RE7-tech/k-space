@@ -76,7 +76,7 @@ export default function Password({ children }) {
 
     return <>
         <Page>
-            <div className="flex flex-col items-center justify-center gap-4 max-w-xl mx-auto ">
+            <div className="flex flex-col items-center justify-center gap-4 max-w-sm mx-auto ">
 
                 <Image alt="" src={LogoKlian} height={123} />
 

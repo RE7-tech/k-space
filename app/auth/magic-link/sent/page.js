@@ -53,7 +53,7 @@ export default function MagicLinkSent({ params }) {
     return <>
 
         <Page>
-            <div className="flex flex-col items-center justify-center max-w-md mx-auto">
+            <div className="flex flex-col items-center justify-center max-w-sm mx-auto">
                 <div className="flex flex-col items-center justify-center">
                     <Image src={MagicLinkImg} height={123} alt="magic link icon" />
                 </div>
