@@ -4,7 +4,7 @@ const config = {
     },
     app: {
         websiteUrl: process.env.NEXT_PUBLIC_WEBSITE_URL ?? 'https://klian.fr',
-        subscriptionUrl: process.env.NEXT_PUBLIC_SUBSCRIPTION_URL ?? 'https://subscription.klian.fr'
+        subscriptionUrl: process.env.NEXT_PUBLIC_SUBSCRIPTION_URL ?? 'https://souscription.klian.fr'
     },
     breakpoints: {
         sm: 640,
