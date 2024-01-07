@@ -18,7 +18,7 @@ export default function Claims({ params }) {
         <Page>
             <DesktopTopbar breadcrumbs={[
                 { name: 'Mes contrats', href: '/policies' },
-                { name: 'Contrat' + (policy?.product?.type), href: '/policies/' + policyId },
+                { name: 'Contrat ' + (policy?.product?.type), href: '/policies/' + policyId },
                 { name: 'Mes sinistres', href: '/policies/' + policyId + '/claims' },
             ]} />
 
