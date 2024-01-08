@@ -44,7 +44,7 @@ export default function Documents({ params }) {
         };
 
         (policyDocuments ?? []).forEach(document => {
-            if (document?.type === 'certification') {
+            if (document?.type?.toLowerCase() === 'certification') {
                 documents.certifications.push(document);
             } else {
                 documents.contractual.push(document);
