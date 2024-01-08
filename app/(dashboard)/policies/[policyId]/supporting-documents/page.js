@@ -3,7 +3,7 @@
 import Highlight from "@/components/Highlight";
 import Page from "@/components/Page";
 import PageTitle from "@/components/PageTitle";
-import { faEye, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faInfoCircle, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import ThreeStarsIcon from "@/public/misc/threestars.svg";
@@ -114,6 +114,15 @@ export default function SupportingDocuments({ params }) {
 
             <div className="mt-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    {loading ? <>
+                        <div className="flex items-center justify-center">
+                            <FontAwesomeIcon icon={faSpinner} size="2x" className="text-gray-400" />
+                            <p>
+                                Chargement, veuillez patienter...
+                            </p>
+                        </div>
+                    </> : null}
 
                     {(Object.entries(policySupportingDocuments ?? {}))?.map(([key, category], idx) => {
                         console.log('category', category);
