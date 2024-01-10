@@ -98,7 +98,7 @@ export default function Policy({ params }) {
                 <Card sizeMode={`adaptive`} className="w-full">
 
                     <div className="flex flex-col justify-center items-center gap-1 w-full">
-                        <Image src={productIcons[policy?.product?.type]} width={64} height={64} className="mb-4" alt="product icon" />
+                        <Image src={productIcons[policy?.product?.type]} width={64} height={64} className="mb-4" alt="" />
                         <h3 className="text-2xl font-bold">
                             {policy?.summary?.primary}
                         </h3>
