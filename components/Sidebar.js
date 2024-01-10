@@ -128,13 +128,13 @@ export default function Sidebar({ onNewQuote, isAnimated = true }) {
                         <FontAwesomeIcon icon={faComments} width={25} height={13} />
                         Chatter
                     </Link>
-                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1`} onClick={() => window.open(`https://wa.me/${config?.infos?.prettyPhone ?? "02 78 84 84 84"}`, '_blank')}>
+                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1`} onClick={() => window.open(`${config?.infos?.whatsappUrl ?? "02 78 84 84 84"}`, '_blank')}>
                         <FontAwesomeIcon icon={faWhatsapp} width={25} height={13} />
                         <span>
                             WhatsApp
                         </span>
                     </Link>
-                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm  font-bold gap-1`} onClick={() => window.open(`https://m.me/${config?.infos?.facebookPageId ?? "klianfr"}`, '_blank')}>
+                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm  font-bold gap-1`} onClick={() => window.open(`${config?.infos?.facebookPageUrl ?? "https://fb.com/klianfr"}`, '_blank')}>
                         <FontAwesomeIcon icon={faFacebookMessenger} width={25} height={13} />
                         <span>
                             Messenger

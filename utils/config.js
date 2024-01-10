@@ -15,8 +15,8 @@ const config = {
     infos: {
         prettyPhone: process.env.NEXT_PUBLIC_PRETTY_PHONE ?? '02 78 84 84 84',
         rawPhone: process.env.NEXT_PUBLIC_RAW_PHONE ?? '0278848484',
-        facebookPageId: process.env.NEXT_PUBLIC_FB_ID ?? 'klianfr',
-        whatsappNumber: process.env.NEXT_PUBLIC_WA_NBR ?? '33756788584',
+        facebookPageUrl: process.env.NEXT_PUBLIC_FB_ID ?? 'klianfr',
+        whatsappUrl: process.env.NEXT_PUBLIC_WA_NBR ?? 'https://wa.me/278848484',
         email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'contact@klian.fr'
     }
 }
