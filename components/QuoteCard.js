@@ -8,7 +8,7 @@ import { useViewport } from "react-viewport-hooks";
 
 export default function QuoteCard({ quote, onClick }) {
 
-    const priceParts = formatPriceAsIntegerAndDecimal(quote?.total_premium);
+    const priceParts = formatPriceAsIntegerAndDecimal(parseFloat(quote?.total_premium / 12));
 
     const { vw, vh } = useViewport();
 
