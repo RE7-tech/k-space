@@ -10,7 +10,7 @@ import { statusLabelMappping } from "@/utils/policies";
 
 export default function PolicyCard({ policy, onClick, className }) {
 
-    const priceParts = formatPriceAsIntegerAndDecimal(policy?.total_premium);
+    const priceParts = formatPriceAsIntegerAndDecimal(parseFloat(policy?.total_premium / 12));
 
     const { vw, vh } = useViewport();
 
