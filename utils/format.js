@@ -6,6 +6,11 @@ export function formatEuro (amount) {
   });
 }
 
+export function formatNumber (number, digits = 9) {
+  if (!number) return '';
+  return parseFloat(number).toFixed(digits);
+}
+
 export function ucfirst (string) {
   if (!string) return '';
   return string.charAt(0).toUpperCase() + string.slice(1);
