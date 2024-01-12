@@ -60,7 +60,7 @@ export default function QuoteCard({ quote, onClick }) {
                                 </span>
                                 <sup className="text-xl relative">
                                     <span>
-                                        ,{parseFloat(priceParts?.decimal) ?? '...'}€
+                                        ,{formatNumber(priceParts?.decimal) ?? '...'}€
                                     </span>
                                 </sup>
                                 <span className="text-xs absolute top-[15px] right-0 text-gray-500">

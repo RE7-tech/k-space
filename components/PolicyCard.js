@@ -1,4 +1,4 @@
-import { formatEuro, formatLicensePlate, formatPriceAsIntegerAndDecimal, ucfirst } from "@/utils/format";
+import { formatEuro, formatLicensePlate, formatNumber, formatPriceAsIntegerAndDecimal, ucfirst } from "@/utils/format";
 import { productIcons } from "@/utils/products";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -108,7 +108,7 @@ export default function PolicyCard({ policy, onClick, className }) {
                                             </span>
                                             <sup className="text-xl relative">
                                                 <span>
-                                                    ,{priceParts?.decimal ?? '...'}€
+                                                    ,{formatNumber(priceParts?.decimal) ?? '...'}€
                                                 </span>
                                             </sup>
                                             <span className="text-xs absolute top-[15px] right-0 text-gray-500">

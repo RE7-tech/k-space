@@ -5,6 +5,7 @@ import DesktopLayout from '@/components/DesktopLayout';
 import { DrawerProvider } from '@/context/DrawerContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { CustomerProvider } from '@/context/CustomerContext';
+import config from '@/utils/config';
 
 const inter = Figtree({
   weights: [400, 500, 600, 700, 900],
@@ -33,6 +34,12 @@ export default function RootLayout({ children }) {
 
       </head>
       <body className={`${inter.className} overflow-hidden`}>
+        {config.app.maintenanceMode || true ? (
+          <div className="fixed bottom-0 left-0 w-screen bg-gray-300 text-white h-50vh flex items-center justify-center flex-col text-center p-4 z-[9999]">
+              Nous effectuons actuellement une maintenance de nos services.
+              Il est possible que certaines fonctionnalités ne soient pas disponibles ou que vous rencontriez des problèmes<br />
+          </div>
+        ) : null}
         <AuthProvider>
           <CustomerProvider>
             <DrawerProvider>
