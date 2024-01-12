@@ -40,7 +40,7 @@ export default function NewQuoteOverlay({ onClose }) {
                     })}
                 </div>
                 <div className="flex justify-center mt-12">
-                    <Link href="/new-quote"  className='text-white cursor-pointer underline underline-offset-[3px]'>
+                    <Link href={"https://klian.fr"} className='text-white cursor-pointer underline underline-offset-[3px]'>
                         Voir plus d'assurances
                     </Link>
                 </div>
