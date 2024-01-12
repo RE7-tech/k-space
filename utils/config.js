@@ -19,7 +19,7 @@ const config = {
         facebookPageUrl: process.env.NEXT_PUBLIC_FB_ID ?? 'klianfr',
         whatsappUrl: process.env.NEXT_PUBLIC_WA_NBR ?? 'https://wa.me/278848484',
         email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'contact@klian.fr',
-        certimat: process.env.NEXT_PUBLIC_CERTIMAT_URL ?? 'https://certimat.fr/prescripteurs?partner=2240'
+        certimatUrl: process.env.NEXT_PUBLIC_CERTIMAT_URL ?? 'https://certimat.fr/prescripteurs?partner=2240'
     },
 }
 

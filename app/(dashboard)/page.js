@@ -199,7 +199,7 @@ export default function Home() {
                   <p>Vente, cession, changement d’adresse, changement de nom, modification du véhicule, perte, vol ou détérioration de votre carte grise…</p>
 
                   <div className="flex justify-center items-center mt-4 gap-4">
-                    <Button variant="primary" className="px-8 py-4" onClick={() => window.open('https://certimat.fr', '_blank')}>
+                    <Button variant="primary" className="px-8 py-4" onClick={() => window.open(config.infos.certimatUrl, '_blank')}>
                       En savoir plus
                     </Button>
                   </div>
