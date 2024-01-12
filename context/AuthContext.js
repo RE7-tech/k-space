@@ -4,11 +4,15 @@ import React, { createContext, useState } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { getLoggedInUser } from '@/lib/api/users';
+import config from '@/utils/config';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
+    const [showModalMaintenance, setShowModalMaintenance] = useState(true);
 
     const login = () => {
 
@@ -40,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
     const checkIfTokenIsInUrl = async () => {
         try {
-            const accessToken = new URLSearchParams(window.location.search).get('access_token'); 
+            const accessToken = new URLSearchParams(window.location.search).get('access_token');
 
             if (accessToken) {
                 localStorage.setItem('auth_token', accessToken);
@@ -58,6 +62,10 @@ export const AuthProvider = ({ children }) => {
         checkIfTokenIsInUrl().then(() => {
             loadUser();
         });
+
+        if (localStorage.getItem('showModalMaintenance') === 'false') {
+            setShowModalMaintenance(false);
+        }
     }, []);
 
     const isAuthenticated = !!user;
@@ -66,6 +74,28 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, login, logout, user, setUser }}>
+            {true && showModalMaintenance ? <>
+                {/* Modal */}
+                <div className="fixed top-0 left-0 w-screen h-screen bg-black opacity-90 z-50">
+                    <div className="flex items-center justify-center w-full h-full">
+                        <div className="bg-white rounded-lg shadow-lg p-8 relative">
+                            <FontAwesomeIcon icon={faClose} width={24} height={24} className="absolute top-4 right-4 text-gray-400 cursor-pointer" onClick={() => {
+                                localStorage.setItem('showModalMaintenance', false);
+                                setShowModalMaintenance(false);
+                            }} />
+                            <div className="text-center">
+                                <h2 className="text-2xl font-bold text-gray-800">
+                                    Maintenance en cours
+                                </h2>
+                                <p className="text-gray-600">
+                                    Vous pourriez rencontrer des problèmes de connexion ou d'affichage. <br/>
+                                    Merci de votre compréhension.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </> : null}
             {children}
         </AuthContext.Provider>
     );
