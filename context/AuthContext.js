@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
                 {/* Modal */}
                 <div className="fixed top-0 left-0 w-screen h-screen bg-black opacity-90 z-50">
                     <div className="flex items-center justify-center w-full h-full">
-                        <div className="bg-white rounded-lg shadow-lg p-8 relative">
+                        <div className="bg-white rounded-lg shadow-lg p-4 relative">
                             <FontAwesomeIcon icon={faClose} width={24} height={24} className="absolute top-4 right-4 text-gray-400 cursor-pointer" onClick={() => {
                                 localStorage.setItem('showModalMaintenance', false);
                                 setShowModalMaintenance(false);

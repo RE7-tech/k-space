@@ -7,7 +7,6 @@ export function formatEuro (amount) {
 }
 
 export function formatNumber (number, digits = 2) {
-  if (!number) return '';
   return parseFloat(number).toFixed(digits);
 }
 
@@ -39,12 +38,12 @@ export function formatLicensePlate (string) {
   }
 }
 
-export function formatPriceAsIntegerAndDecimal (price) {
+export function formatPriceAsIntegerAndDecimal (price, digits = 2) {
   if (!price) return { integer: '...', decimal: '...'}
   const [integer, decimal] = price.toString().split('.');
   return {
     integer,
-    decimal: decimal || '00',
+    decimal: decimal?.slice(0, digits),
   };
 }
 
