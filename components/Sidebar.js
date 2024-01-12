@@ -124,28 +124,28 @@ export default function Sidebar({ onNewQuote, isAnimated = true }) {
                     Besoin d'aide ?
                 </h4>
                 <ul className="space-y-2">
-                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1`} onClick={() => router.push('/help')}>
+                    <li className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1 cursor-pointer hover:text-blue-800`} onClick={() => router.push('/help')}>
                         <FontAwesomeIcon icon={faComments} width={25} height={13} />
                         Chatter
-                    </Link>
-                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1`} onClick={() => window.open(`${config?.infos?.whatsappUrl ?? "02 78 84 84 84"}`, '_blank')}>
+                    </li>
+                    <li className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1 cursor-pointer hover:text-blue-800`} onClick={() => window.open(`${config?.infos?.whatsappUrl ?? "02 78 84 84 84"}`, '_blank')}>
                         <FontAwesomeIcon icon={faWhatsapp} width={25} height={13} />
                         <span>
                             WhatsApp
                         </span>
-                    </Link>
-                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm  font-bold gap-1`} onClick={() => window.open(`${config?.infos?.facebookPageUrl ?? "https://fb.com/klianfr"}`, '_blank')}>
+                    </li>
+                    <li className={`flex items-center justify-start py-2 text-gray-400 text-sm  font-bold gap-1 cursor-pointer hover:text-blue-800`} onClick={() => window.open(`${config?.infos?.facebookPageUrl ?? "https://fb.com/klianfr"}`, '_blank')}>
                         <FontAwesomeIcon icon={faFacebookMessenger} width={25} height={13} />
                         <span>
                             Messenger
                         </span>
-                    </Link>
-                    <Link as={'li'} href="/faq" className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1`} onClick={() => window.open(`tel:${config?.infos?.rawPhone ?? "0278848484"}`, '_blank')}>
+                    </li>
+                    <li className={`flex items-center justify-start py-2 text-gray-400 text-sm font-bold gap-1 cursor-pointer hover:text-blue-800`} onClick={() => window.open(`tel:${config?.infos?.rawPhone ?? "0278848484"}`, '_blank')}>
                         <FontAwesomeIcon icon={faPhoneVolume} width={25} height={13} />
                         <span>
                             {config?.infos?.prettyPhone ?? "02 78 84 84 84"}
                         </span>
-                    </Link>
+                    </li>
                 </ul>
             </div>
 
