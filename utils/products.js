@@ -7,7 +7,8 @@ const productIcons = {
     "cyclo": ProductIconCyclo,
     "moto": ProductIconMoto,
     "vsp": ProductIconVSP,
-    "home": ProductIconHome
+    "home": ProductIconHome,
+    "mrh": ProductIconHome,
 }
 
 const products = {
