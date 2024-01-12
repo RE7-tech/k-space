@@ -32,6 +32,13 @@ const products = {
         enabled: true,
         newQuoteUrl: ''
     },
+    'mrh': {
+        name: 'Habitation',
+        type: 'home',
+        icon: ProductIconHome,
+        enabled: true,
+        newQuoteUrl: ''
+    },
     'home': {
         name: 'Habitation',
         type: 'home',
