@@ -6,7 +6,7 @@ export function formatEuro (amount) {
   });
 }
 
-export function formatNumber (number, digits = 9) {
+export function formatNumber (number, digits = 2) {
   if (!number) return '';
   return parseFloat(number).toFixed(digits);
 }
