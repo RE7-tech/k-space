@@ -7,6 +7,7 @@ import { getLoggedInUser } from '@/lib/api/users';
 import config from '@/utils/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { removeAuthToken } from '@/utils/auth';
 
 export const AuthContext = createContext();
 
@@ -19,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
-        window.localStorage.removeItem('auth_token');
+        removeAuthToken();
 
         setUser(null);
 

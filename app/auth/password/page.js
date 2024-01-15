@@ -11,6 +11,7 @@ import Page from '@/components/Page';
 import { useEffect, useState } from 'react';
 import { loginUser } from '@/lib/api/users';
 import { redirect } from 'next/navigation';
+import { setAuthToken } from '@/utils/auth';
 
 export default function Password({ children }) {
 
@@ -43,7 +44,7 @@ export default function Password({ children }) {
                 return;
             }
 
-            localStorage.setItem('auth_token', authToken);
+            setAuthToken(authToken);
 
             setTimeout(() => {
                 window.location.href = '/';
