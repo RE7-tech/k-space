@@ -888,7 +888,7 @@ export default function NewClaim({ children, params = {} }) {
                                                         </div>
                                                     </div></> : null}
 
-                                                {['home', 'mrh', 'habitation'].includes(policy?.product?.type) ? <>
+                                                {!['home', 'mrh', 'habitation'].includes(policy?.product?.type) ? <>
                                                     <div className="flex flex-col gap-4 mt-4 relative">
                                                         {/* add cross to remove files */}
                                                         {hasFile('photos') ? <FontAwesomeIcon icon={faTimes} className="text-red-500 cursor-pointer hover:text-red-800 absolute top-2 right-2" onClick={() => {
