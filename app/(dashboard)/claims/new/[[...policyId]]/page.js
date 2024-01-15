@@ -369,6 +369,9 @@ export default function NewClaim({ children, params = {} }) {
                 }
             }
 
+            // delete draft
+            sessionStorage.removeItem('new_claim');
+
             setIsSaved(true);
         } catch (e) {
             console.error(e);
@@ -454,6 +457,13 @@ export default function NewClaim({ children, params = {} }) {
         loadPolicy();
 
     }, [claim?.policyId]);
+
+    useEffect(() => {
+        if (['mrh', 'home', 'habitation'].includes(policy?.product?.type)) {
+            // remove accident from the claim types
+            setClaimTypes(claimTypes.filter((claimType) => claimType?.value !== 'accident'));
+        }
+    }, [policy]);
 
     if (policyLoading) {
         return <>
