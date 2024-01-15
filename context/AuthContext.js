@@ -12,7 +12,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
-    const [showModalMaintenance, setShowModalMaintenance] = useState(true);
+    const [showModalMaintenance, setShowModalMaintenance] = useState(false);
 
     const login = () => {
 
@@ -65,6 +65,8 @@ export const AuthProvider = ({ children }) => {
 
         if (localStorage.getItem('showModalMaintenance') === 'false') {
             setShowModalMaintenance(false);
+        } else {
+            setShowModalMaintenance(true);
         }
     }, []);
 

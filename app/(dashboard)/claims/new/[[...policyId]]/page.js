@@ -9,17 +9,15 @@ import Page from "@/components/Page";
 import PageTitle from "@/components/PageTitle";
 import { faCheck, faCheckCircle, faSpinner, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Input } from "postcss";
 import { useEffect, useState } from "react";
-import Select from "react-select";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import FileUploader from "@/components/FileUploader";
 import { saveClaim, addClaimAttachment } from "@/lib/api/claims";
 import PolicySmallCard from "@/components/PolicySmallCard";
 import useCustomerPolicies from "@/hooks/useCustomerPolicies";
-import { set } from "react-hook-form";
 import useCustomer from "@/hooks/useCustomer";
+import { getPolicy } from "@/lib/api/policies";
 
 export function WitnessForm({ witness, onChange }) {
 
@@ -80,9 +78,21 @@ export function PartyForm({ party, onChange }) {
 
 export default function NewClaim({ children, params = {} }) {
 
-    const policyId = params?.policyId;
+    let policyId = params?.policyId;
+
+    if (Array.isArray(policyId) && policyId[0]) {
+        policyId = policyId[0];
+    }
+
     const { customer } = useCustomer();
     const [currentStep, setCurrentStep] = useState(0);
+    const [claimTypes, setClaimTypes] = useState([
+        { value: 'accident', label: 'Accident' },
+        { value: 'theft', label: 'Vol' },
+        { value: 'fire', label: 'Incendie' },
+        { value: 'other', label: 'Autre' },
+    ]);
+    const [policy, setPolicy] = useState(null);
 
     const router = useRouter();
 
@@ -102,6 +112,8 @@ export default function NewClaim({ children, params = {} }) {
     const [isSaved, setIsSaved] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [errors, setErrors] = useState({});
+    const [policyLoading, setPolicyLoading] = useState(false);
+
     const { policies: customerPolicies } = useCustomerPolicies();
 
     const filesRef = {
@@ -136,7 +148,16 @@ export default function NewClaim({ children, params = {} }) {
             return;
         }
 
-        setDocuments({ ...documents, [name]: e.target.files[0] });
+        let newDocuments = { ...documents };
+
+        // handle multiple files
+        if (files.length > 1) {
+            newDocuments[name] = files;
+        } else {
+            newDocuments[name] = files[0];
+        }
+
+        setDocuments(newDocuments);
     }
 
     const handleStepSubmit = (e, step) => {
@@ -255,15 +276,15 @@ export default function NewClaim({ children, params = {} }) {
 
         if (currentStep === 6) {
 
-            if (!documents?.constat) {
+            if (!documents?.constat && claim?.established?.includes('constat')) {
                 newErrors.constat = 'Ce champ est requis';
             }
 
-            if (!documents?.pv) {
+            if (!documents?.pv && claim?.established?.includes('pv')) {
                 newErrors.pv = 'Ce champ est requis';
             }
 
-            if (!documents?.photos) {
+            if (!documents?.photos && ['home', 'mrh', 'habitation'].includes(policy?.product?.type)) {
                 newErrors.photos = 'Ce champ est requis';
             }
 
@@ -361,6 +382,30 @@ export default function NewClaim({ children, params = {} }) {
 
     }
 
+    const loadPolicy = async () => {
+        if (!claim?.policyId) {
+            return;
+        }
+
+        setPolicyLoading(true);
+
+        try {
+            const { data: policyResp } = await getPolicy(claim?.policyId);
+
+            setPolicy(policyResp?.data);
+
+        } catch (e) {
+
+            console.error(e);
+
+        } finally {
+
+            setPolicyLoading(false);
+
+        }
+
+    }
+
     useEffect(() => {
         validateStep();
     }, [claim, currentStep, documents]);
@@ -397,6 +442,32 @@ export default function NewClaim({ children, params = {} }) {
 
     }, [claim.policyId]);
 
+    useEffect(() => {
+
+        // load the draft from the session storage
+        const draft = sessionStorage.getItem('new_claim');
+
+        if (draft) {
+            setClaim(JSON.parse(draft));
+        }
+
+        loadPolicy();
+
+    }, [claim?.policyId]);
+
+    if (policyLoading) {
+        return <>
+            <Page>
+                <div className="flex flex-col items-center justify-center gap-4">
+                    <FontAwesomeIcon icon={faSpinner} size="2x" spin={true} />
+                    <p>
+                        Chargement du formulaire...
+                    </p>
+                </div>
+            </Page>
+        </>
+    }
+
     console.log('claim', claim, errors, documents);
 
     return <>
@@ -416,6 +487,10 @@ export default function NewClaim({ children, params = {} }) {
                 <PageTitle>
                     Nouveau <Highlight>sinistre</Highlight>
                 </PageTitle>
+
+                {/* <pre>
+                    {JSON.stringify(claim, null, 2)}
+                </pre> */}
 
                 <div className="mt-8">
                     <div className="lg:max-w-2xl">
@@ -483,12 +558,7 @@ export default function NewClaim({ children, params = {} }) {
                                     {currentStep === 0 ?
                                         <form className="flex flex-col gap-4" onSubmit={(e) => handleStepSubmit(e, currentStep)}>
 
-                                            <InputField value={claim.claimType} name="claimType" label="Type de sinistre" placeholder="Type de sinistre" choices={[
-                                                { value: 'accident', label: 'Accident' },
-                                                { value: 'vol', label: 'Vol' },
-                                                { value: 'incendie', label: 'Incendie' },
-                                                { value: 'autre', label: 'Autre' },
-                                            ]} onChange={handleChange} />
+                                            <InputField value={claim.claimType} name="claimType" label="Type de sinistre" placeholder="Type de sinistre" choices={claimTypes} onChange={handleChange} />
 
                                             {/* Two columns, date and time */}
                                             <div className="flex flex-col lg:flex-row gap-4">
@@ -771,47 +841,61 @@ export default function NewClaim({ children, params = {} }) {
                                                     Ils sont obligatoires pour enregistrer votre dossier
                                                 </Alert>
 
-                                                <div className="flex flex-col gap-4 mt-4">
-                                                    <div className="flex flex-row justify-between items-center border border-gray-300 rounded-md p-4">
-                                                        <span>Constat</span>
-                                                        {hasFile('constat') ? <div className={`rounded-full h-6 w-6 bg-green-100 flex items-center justify-center`}>
-                                                            <FontAwesomeIcon icon={faCheck} className="text-green-500" />
-                                                        </div> : <>
-                                                            <input name="constat" type="file" onChange={handleFileChange} ref={filesRef.constat} className="hidden" />
-                                                            <Button variant="primary" onClick={() => filesRef.constat.current.click()}>
-                                                                Télécharger
-                                                            </Button>
-                                                        </>}
-                                                    </div>
-                                                </div>
+                                                {claim?.established?.includes('constat') ? <>
+                                                    <div className="flex flex-col gap-4 mt-4 relative">
+                                                        {hasFile('constat') ? <FontAwesomeIcon icon={faTimes} className="text-red-500 cursor-pointer hover:text-red-800 absolute top-2 right-2" onClick={() => {
+                                                            setDocuments({ ...documents, pv: false });
+                                                        }} /> : null}
+                                                        <div className="flex flex-row justify-between items-center border border-gray-300 rounded-md p-4">
+                                                            <span>Constat</span>
+                                                            {hasFile('constat') ? <div className={`rounded-full h-6 w-6 bg-green-100 flex items-center justify-center`}>
+                                                                <FontAwesomeIcon icon={faCheck} className="text-green-500" />
+                                                            </div> : <>
+                                                                <input name="constat" type="file" onChange={handleFileChange} ref={filesRef.constat} className="hidden" />
+                                                                <Button variant="primary" onClick={() => filesRef.constat.current.click()}>
+                                                                    Télécharger
+                                                                </Button>
+                                                            </>}
+                                                        </div>
+                                                    </div></> : null}
 
-                                                <div className="flex flex-col gap-4 mt-4">
-                                                    <div className="flex flex-row justify-between items-center border border-gray-300 rounded-md p-4">
-                                                        <span>Procès verbal</span>
-                                                        {hasFile('pv') ? <div className={`rounded-full h-6 w-6 bg-green-100 flex items-center justify-center`}>
-                                                            <FontAwesomeIcon icon={faCheck} className="text-green-500" />
-                                                        </div> : <>
-                                                            <input name="pv" type="file" onChange={handleFileChange} ref={filesRef.pv} className="hidden" />
-                                                            <Button variant="primary" onClick={() => filesRef.pv.current.click()}>
-                                                                Télécharger
-                                                            </Button>
-                                                        </>}
-                                                    </div>
-                                                </div>
+                                                {claim?.established?.includes('pv') ? <>
+                                                    <div className="flex flex-col gap-4 mt-4 relative">
+                                                        {/* add cross to remove files */}
+                                                        {hasFile('pv') ? <FontAwesomeIcon icon={faTimes} className="text-red-500 cursor-pointer hover:text-red-800 absolute top-2 right-2" onClick={() => {
+                                                            setDocuments({ ...documents, pv: false });
+                                                        }} /> : null}
+                                                        <div className="flex flex-row justify-between items-center border border-gray-300 rounded-md p-4">
+                                                            <span>Procès verbal</span>
+                                                            {hasFile('pv') ? <div className={`rounded-full h-6 w-6 bg-green-100 flex items-center justify-center`}>
+                                                                <FontAwesomeIcon icon={faCheck} className="text-green-500" />
+                                                            </div> : <>
+                                                                <input name="pv" type="file" onChange={handleFileChange} ref={filesRef.pv} className="hidden" />
+                                                                <Button variant="primary" onClick={() => filesRef.pv.current.click()}>
+                                                                    Télécharger
+                                                                </Button>
+                                                            </>}
+                                                        </div>
+                                                    </div></> : null}
 
-                                                <div className="flex flex-col gap-4 mt-4">
-                                                    <div className="flex flex-row justify-between items-center border border-gray-300 rounded-md p-4">
-                                                        <span>4 photos du véhicule<br /><strong>avant / arrière / côtés</strong></span>
-                                                        {hasFile('photos') ? <div className={`rounded-full h-6 w-6 bg-green-100 flex items-center justify-center`}>
-                                                            <FontAwesomeIcon icon={faCheck} className="text-green-500" />
-                                                        </div> : <>
-                                                            <input name="photos" type="file" onChange={handleFileChange} ref={filesRef.photos} className="hidden" />
-                                                            <Button variant="primary" onClick={() => filesRef.photos.current.click()}>
-                                                                Télécharger
-                                                            </Button>
-                                                        </>}
-                                                    </div>
-                                                </div>
+                                                {['home', 'mrh', 'habitation'].includes(policy?.product?.type) ? <>
+                                                    <div className="flex flex-col gap-4 mt-4 relative">
+                                                        {/* add cross to remove files */}
+                                                        {hasFile('photos') ? <FontAwesomeIcon icon={faTimes} className="text-red-500 cursor-pointer hover:text-red-800 absolute top-2 right-2" onClick={() => {
+                                                            setDocuments({ ...documents, photos: false });
+                                                        }} /> : null}
+                                                        <div className="flex flex-row justify-between items-center border border-gray-300 rounded-md p-4">
+                                                            <span>4 photos du véhicule<br /><strong>avant / arrière / côtés</strong></span>
+                                                            {hasFile('photos') ? <div className={`rounded-full h-6 w-6 bg-green-100 flex items-center justify-center`}>
+                                                                <FontAwesomeIcon icon={faCheck} className="text-green-500" />
+                                                            </div> : <>
+                                                                <input name="photos" type="file" onChange={handleFileChange} ref={filesRef.photos} className="hidden" multiple={true} />
+                                                                <Button variant="primary" onClick={() => filesRef.photos.current.click()}>
+                                                                    Télécharger
+                                                                </Button>
+                                                            </>}
+                                                        </div>
+                                                    </div> </> : null}
 
                                                 {/* Back and next buttons */}
                                                 <div className="grid grid-cols-2 gap-4 mt-8">
@@ -973,7 +1057,7 @@ export default function NewClaim({ children, params = {} }) {
 
                                 </>}
 
-                        </>}
+                            </>}
 
                     </div>
                 </div>

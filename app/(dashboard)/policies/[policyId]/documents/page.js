@@ -18,7 +18,7 @@ import { downloadDocument } from "@/lib/api/documents";
 export function DocumentListItem({ document, onClick }) {
     return <>
         <div className="flex items-center justify-between py-4 text-lg rounded-md items-center justify-between hover:bg-gray-100 cursor-pointer hover:p-4" onClick={() => onClick(document)}>
-            <span>{document?.name ?? "..."}</span>
+            <span>{document?.label || document?.name || "..."}</span>
             <div className="flex items-center gap-4">
                 {document?.status && <Badge variant="success" className="text-white">{document?.status ?? "..."}</Badge>}
                 <FontAwesomeIcon icon={faDownload} width={18} height={18} />
@@ -44,7 +44,7 @@ export default function Documents({ params }) {
         };
 
         (policyDocuments ?? []).forEach(document => {
-            if (document?.type?.toLowerCase() === 'certification') {
+            if (['certification', 'attestation_1', 'attestation_2', 'attestation_3', 'attestation'].includes(document?.type?.toLowerCase())) {
                 documents.certifications.push(document);
             } else {
                 documents.contractual.push(document);

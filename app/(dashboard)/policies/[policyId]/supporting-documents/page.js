@@ -116,7 +116,7 @@ export default function SupportingDocuments({ params }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                     {loading ? <>
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center flex-col gap-4">
                             <FontAwesomeIcon icon={faSpinner} size="2x" className="text-gray-400" />
                             <p>
                                 Chargement, veuillez patienter...

@@ -98,7 +98,7 @@ export default function Policy({ params }) {
                 <Card sizeMode={`adaptive`} className="w-full">
 
                     <div className="flex flex-col justify-center items-center gap-1 w-full">
-                        <Image src={productIcons[policy?.product?.type]} width={64} height={64} className="mb-4" alt="" />
+                        <Image src={productIcons[policy?.product?.type]} width={64} height={64} className="mb-4" alt="" priority={true} loading="eager" />
                         <h3 className="text-2xl font-bold">
                             {policy?.summary?.primary}
                         </h3>
@@ -137,11 +137,11 @@ export default function Policy({ params }) {
                         </div>
                     </div>
 
-                    <div className="mt-8 text-center">
+                    {/* <div className="mt-8 text-center">
                         <a href="#" className="text-gray-500 underline underline-offset-[3px]">
                             Qu'est-ce qui est couvert par mon contrat ?
                         </a>
-                    </div>
+                    </div> */}
 
 
                 </Card>
