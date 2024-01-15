@@ -44,7 +44,14 @@ export const AuthProvider = ({ children }) => {
 
     const checkIfTokenIsInUrl = async () => {
         try {
-            const accessToken = new URLSearchParams(window.location.search).get('access_token');
+            const urlSearch = new URLSearchParams(window.location.search);
+    
+            let accessToken = urlSearch.get('access_token');
+            let accessToken2 = urlSearch.get('accessToken');
+
+            if (!accessToken) {
+                accessToken = accessToken2;
+            }
 
             if (accessToken) {
                 localStorage.setItem('auth_token', accessToken);
