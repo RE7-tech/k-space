@@ -546,7 +546,9 @@ export default function NewClaim({ children, params = {} }) {
 
                                         {customerPolicies?.length > 0 ? <>
 
-                                            {customerPolicies?.map((policy, idx) => {
+                                            {customerPolicies?.filter((policy) => {
+                                                return ['active'].includes(policy?.status?.toLowerCase());
+                                            }).map((policy, idx) => {
                                                 return <PolicySmallCard isBordered={true} key={idx} policy={policy} onClick={() => {
                                                     setClaim({ ...claim, policyId: policy?.id });
                                                     setCurrentStep(0);
