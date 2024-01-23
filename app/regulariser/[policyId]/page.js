@@ -12,8 +12,9 @@ import { formatEuro, ucfirst } from '@/utils/format';
 import Card from '@/components/Card';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Highlight from '@/components/Highlight';
+import { set } from 'react-hook-form';
 
 const stripePromise = loadStripe(config.stripe.publicKey);
 
@@ -78,9 +79,13 @@ export default function Regulariser({ params }) {
     const [isTransactionsOpen, setIsTransactionsOpen] = useState(false);
     const [errors, setErrors] = useState({});
     const urlParams = new URLSearchParams(window.location.search);
+    const [isPolicyLoading, setIsPolicyLoading] = useState(true);
+    const [isPolicyPaymentLoading, setIsPolicyPaymentLoading] = useState(true);
+    const [isRegularizationNeeded, setIsRegularizationNeeded] = useState(true);
 
     const loadPolicyPayment = async () => {
         try {
+            setIsPolicyPaymentLoading(true);
             const response = await createPolicyPayment(policyId);
             const clientSecret = response?.data?.data?.client_secret;
             const balance = response?.data?.data?.balance;
@@ -95,11 +100,19 @@ export default function Regulariser({ params }) {
             setTransactions(transactions);
         } catch (error) {
             console.log(error);
+
+            // if data.amount <= 0 there is no payment to do
+            if (Math.abs(error?.response?.data?.data?.amount || 0) <= 0) {
+                setIsRegularizationNeeded(false);
+            }
+        } finally {
+            setIsPolicyPaymentLoading(false);
         }
     }
 
     const loadPolicy = async () => {
         try {
+            setIsPolicyLoading(true);
             const response = await getPolicy(policyId);
             const policy = response?.data?.data;
 
@@ -108,11 +121,11 @@ export default function Regulariser({ params }) {
             console.log(error);
         } finally {
             console.log('policy', policy);
+            setIsPolicyLoading(false);
         }
     }
 
     useEffect(() => {
-        loadPolicy();
         loadPolicyPayment();
     }, [policyId]);
 
@@ -124,10 +137,18 @@ export default function Regulariser({ params }) {
         );
     }
 
-    if (!clientSecret || !policy) {
+    if (isPolicyPaymentLoading) {
         return (
             <Page>
-                <p>Chargement en cours...</p>
+                <FontAwesomeIcon icon={faSpinner} spin={true} />
+            </Page>
+        );
+    }
+
+    if (!isRegularizationNeeded) {
+        return (
+            <Page>
+                <p>Vous n'avez pas de régularisation à effectuer.</p>
             </Page>
         );
     }
@@ -171,7 +192,7 @@ export default function Regulariser({ params }) {
                     </>}>
                         <div className="flex flex-row justify-between mt-4" style={{ display: isTransactionsOpen ? 'flex' : 'none' }}>
                             <span className="text-gray-500">
-                                Ref #{transaction?.id} - Du{' '}
+                                Échéance #{transaction?.id} - Du{' '}
                                 <i>{moment(transaction?.start_at).format('DD/MM/YYYY')}</i> au <i>{moment(transaction?.end_at).format('DD/MM/YYYY')}</i>
                             </span>
                             <span className="font-bold">
