@@ -1,6 +1,6 @@
 const config = {
     api: {
-        url: process.env.NEXT_PUBLIC_API_URL || 'https://360.api.re7.tech',
+        url: process.env.NEXT_PUBLIC_API_URL || 'https://dev.360.api.re7.tech',
     },
     app: {
         websiteUrl: process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://klian.fr',
@@ -20,6 +20,9 @@ const config = {
         whatsappUrl: process.env.NEXT_PUBLIC_WA_NBR || 'https://wa.me/278848484',
         email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'contact@klian.fr',
         certimatUrl: process.env.NEXT_PUBLIC_CERTIMAT_URL || 'https://certimat.fr/prescripteurs?partner=2240'
+    },
+    stripe: {
+        publicKey: process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || 'pk_test_51JpZDxCWlPpMd2zn5uGxytrjGfQmi80np3Hg5s4gS7SDx5vYciVwedJQzzRoaCOS81bTKUN9Hcj49I3MoqZHVeXG00PCADaTS3',
     },
 }
 
