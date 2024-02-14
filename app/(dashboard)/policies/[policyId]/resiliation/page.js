@@ -115,7 +115,7 @@ export default function Resiliation({ params }) {
 
         setReasons(reasons.filter((reason) => {
             if (reason.product_type) {
-                return reason.product_type.includes(policy.product?.type);
+                return reason.product_type.includes(policy?.product?.type?.toLowerCase());
             }
 
             return true;
