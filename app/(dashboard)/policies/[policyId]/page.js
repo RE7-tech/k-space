@@ -5,7 +5,7 @@ import DesktopTopbar from "@/components/DesktopTopbar";
 import Page from "@/components/Page";
 import PageTitle from "@/components/PageTitle";
 import { formatEuro, formatLicensePlate, ucfirst, formatDate } from "@/utils/format";
-import { faCalendar, faChevronRight, faExplosion, faFileContract, faListDots, faMoneyBill, faNewspaper, faPaperPlane, faShield } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCalendar, faChevronRight, faDotCircle, faEllipsisVertical, faExplosion, faFileContract, faHandDots, faListDots, faMoneyBill, faNewspaper, faPaperPlane, faShield, faWarning } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Alert from "@/components/Alert";
 import Card from "@/components/Card";
@@ -16,6 +16,7 @@ import { useViewport } from "react-viewport-hooks";
 import config from "@/utils/config";
 import { productIcons } from "@/utils/products";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Policy({ params }) {
 
@@ -26,6 +27,8 @@ export default function Policy({ params }) {
     const { policy, isLoading, isError } = usePolicy(policyId);
 
     const { vw, vh } = useViewport();
+
+    const [showMenu, setShowMenu] = useState(false);
 
     const quickLinks = [
         {
@@ -92,6 +95,42 @@ export default function Policy({ params }) {
             {(policy.is_unpaid ?? false) ? <Alert variant="danger">
                 Le paiement de votre assurance n'a pas pu être effectué. Veuillez mettre à jour votre moyen de paiement.
             </Alert> : null}
+
+            {policy.has_termination ?? false ? <Alert variant="info">
+                <FontAwesomeIcon icon={faWarning} width={24} height={24} className="me-4" />
+                Demande de résiliation en cours
+            </Alert> : null}
+
+            <div className="flex flex-row justify-between items-center">
+                <h1 className="text-3xl font-bold mt-8 mb-4">
+                    {policy?.summary?.primary} - {policy?.summary?.secondary}
+                </h1>
+                {(!policy.has_termination ?? true) ? <>
+                    <div>
+                        <div className="relative w-full">
+                            <FontAwesomeIcon icon={faEllipsisVertical} className="text-gray-400 cursor-pointer" width={24} height={24} onClick={() => {
+                                // open menu
+                                setShowMenu(!showMenu);
+                            }} />
+
+                            {showMenu ? <div className="absolute top-8 right-0 bg-white shadow-lg rounded-lg p-4 w-[250px] z-50">
+                                <div className="flex flex-col gap-2 w-full">
+
+                                    <div className="flex flex-row items-center gap-2 cursor-pointer hover:text-gray-800"
+                                    onClick={() => {
+                                        router.push('/policies/' + policyId + '/resiliation');
+                                    }}>
+                                        <FontAwesomeIcon icon={faBan} width={24} height={24} className="text-pink-500" />
+                                        <span>
+                                            Résilier mon contrat
+                                        </span>
+                                    </div>
+                                </div>
+                            </div> : null}
+                        </div>
+                    </div>
+                </> : null}
+            </div>
 
             {/* Two columns in desktop mode, and one column in mobile mode */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
