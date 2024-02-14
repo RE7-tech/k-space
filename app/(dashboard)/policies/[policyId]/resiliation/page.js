@@ -113,13 +113,11 @@ export default function Resiliation({ params }) {
             return;
         }
 
-        setReasons(reasons.filter((reason) => {
-            if (reason.product_type) {
-                return reason.product_type.includes(policy?.product?.type?.toLowerCase());
-            }
-
-            return true;
-        }));
+        setReasons((prevState) => {
+            return prevState.filter((reason) => {
+                return reason.product_type.includes(policy.product?.type);
+            });
+        });
 
     }, [policy]);
 
