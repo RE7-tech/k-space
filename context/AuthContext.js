@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     const checkIfTokenIsInUrl = async () => {
         try {
             const urlSearch = new URLSearchParams(window.location.search);
-    
+
             let accessToken = urlSearch.get('access_token');
             let accessToken2 = urlSearch.get('accessToken');
 
@@ -98,8 +98,8 @@ export const AuthProvider = ({ children }) => {
                                     Maintenance en cours
                                 </h2>
                                 <p className="text-gray-600">
-                                    Vous pourriez rencontrer des problèmes de connexion ou d'affichage. <br/>
-                                    Merci de votre compréhension.
+                                    On change de système informatique, de nouvelles fonctionnalités arrivent et le traitement de votre dossier a pris un peu de retard. <br />
+                                    <strong>Veuillez nous excuser pour le désagrément.</strong>
                                 </p>
                             </div>
                         </div>

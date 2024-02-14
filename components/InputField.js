@@ -11,7 +11,7 @@ export default function InputField({ label, id, name, type, placeholder, value, 
         onChange({
             target: {
                 name,
-                value: selectedOption
+                value: selectedOption?.value
             }
         })
     }
