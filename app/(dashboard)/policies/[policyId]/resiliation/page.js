@@ -18,15 +18,15 @@ export default function Resiliation({ params }) {
     const maxSteps = 10;
 
     const [reasons, setReasons] = useState([
-        { value: 'Je vends mon véhicule', label: 'Je vends mon véhicule' },
-        { value: 'Je donne mon véhicule', label: 'Je donne mon véhicule' },
-        { value: 'Je mets mon véhicule à la casse', label: 'Je mets mon véhicule à la casse' },
-        { value: 'Je change d\'assureur', label: 'Je change d\'assureur' },
-        { value: 'Je change de véhicule', label: 'Je change de véhicule' },
-        { value: 'Retraction', label: 'Je me rétracte' },
-        { value: 'Déménagement', label: 'Je déménage', product_type: ['mrh'] },
-        { value: 'Loi chatel', label: 'Je souhaite résilier dans le cadre de la loi Chatel' },
-        { value: 'À Échéance', label: 'Je souhaite résilier à l\'échéance' },
+        { value: 'Je vends mon véhicule', label: 'Je vends mon véhicule', product_type: ['cyclo', 'moto', 'vsp'] },
+        { value: 'Je donne mon véhicule', label: 'Je donne mon véhicule', product_type: ['cyclo', 'moto', 'vsp'] },
+        { value: 'Je mets mon véhicule à la casse', label: 'Je mets mon véhicule à la casse', product_type: ['cyclo', 'moto', 'vsp'] },
+        { value: 'Je change d\'assureur', label: 'Je change d\'assureur', product_type: ['cyclo', 'moto', 'vsp'] },
+        { value: 'Je change de véhicule', label: 'Je change de véhicule', product_type: ['cyclo', 'moto', 'vsp'] },
+        { value: 'Retraction', label: 'Je me rétracte', product_type: ['cyclo', 'moto', 'vsp'] },
+        { value: 'Déménagement', label: 'Je déménage', product_type: ['mrh', 'home', 'habitation'] },
+        { value: 'Loi chatel', label: 'Je souhaite résilier dans le cadre de la loi Chatel', product_type: ['mrh', 'home', 'habitation'] },
+        { value: 'À Échéance', label: 'Je souhaite résilier à l\'échéance', product_type: ['mrh', 'home', 'habitation'] },
     ]);
 
     const hasFile = (name) => {
