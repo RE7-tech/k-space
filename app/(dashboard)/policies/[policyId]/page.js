@@ -102,7 +102,7 @@ export default function Policy({ params }) {
             </Alert> : null}
 
             <div className="flex flex-row justify-between items-center">
-                <h1 className="text-3xl font-bold mt-8 mb-4">
+                <h1 className="text-3xl font-bold mt-8 mb-8">
                     {policy?.summary?.primary} - {policy?.summary?.secondary}
                 </h1>
                 {(!policy.has_termination ?? true) ? <>
