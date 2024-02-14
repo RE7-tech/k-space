@@ -329,7 +329,7 @@ export default function Resiliation({ params }) {
 
                     {step != 4 ? <>
                         <div className="flex flex-row justify-between mt-8">
-                            {step > 0 ? <Button variant="outline_primary" size="lg">
+                            {step > 1 ? <Button variant="outline_primary" size="lg">
                                 Précédent
                             </Button> : null}
 
