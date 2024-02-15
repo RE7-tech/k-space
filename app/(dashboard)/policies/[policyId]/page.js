@@ -83,6 +83,24 @@ export default function Policy({ params }) {
         </>;
     }
 
+    const hasPendingTermination = () => {
+        if (!policy?.terminations) return false;
+
+        return policy?.terminations?.find(termination => ['pending'].includes(termination?.status?.toLowerCase())) ?? false;
+    }
+
+    const hasDeclinedTermination = () => {
+        if (!policy?.terminations) return false;
+
+        return policy?.terminations?.find(termination => termination?.status?.toLowerCase() === 'declined') ?? false;
+    }
+
+    const getLastTerminationDeclined = () => {
+        if (!policy?.terminations) return false;
+
+        return policy?.terminations?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))?.find(termination => termination?.status?.toLowerCase() === 'declined') ?? false;
+    }
+
     return <>
         <Page>
 
@@ -96,16 +114,28 @@ export default function Policy({ params }) {
                 Le paiement de votre assurance n'a pas pu être effectué. Veuillez mettre à jour votre moyen de paiement.
             </Alert> : null}
 
-            {policy.has_termination ?? false ? <Alert variant="info">
+            {hasPendingTermination() ? <Alert variant="info">
                 <FontAwesomeIcon icon={faWarning} width={24} height={24} className="me-4" />
                 Demande de résiliation en cours
+            </Alert> : null}
+
+            {hasDeclinedTermination() ? <Alert variant="danger">
+                <div className="flex flex-col items-start gap-4">
+                    <p>
+                        <FontAwesomeIcon icon={faWarning} width={24} height={24} className="me-4" />
+                        Votre demande de résiliation a été refusée.
+                    </p>
+                    {getLastTerminationDeclined()?.customer_comment ? <p className="text-gray-500 text-sm">
+                        {getLastTerminationDeclined()?.customer_comment}
+                    </p> : null}
+                </div>
             </Alert> : null}
 
             <div className="flex flex-row justify-between items-center">
                 <h1 className="text-3xl font-bold mt-8 mb-8">
                     {policy?.summary?.primary} - {policy?.summary?.secondary}
                 </h1>
-                
+
                 {(!policy.has_termination ?? true) ? <>
                     <div>
                         <div className="relative w-full">
@@ -118,9 +148,9 @@ export default function Policy({ params }) {
                                 <div className="flex flex-col gap-2 w-full">
 
                                     <div className="flex flex-row items-center gap-2 cursor-pointer hover:text-gray-800"
-                                    onClick={() => {
-                                        router.push('/policies/' + policyId + '/resiliation');
-                                    }}>
+                                        onClick={() => {
+                                            router.push('/policies/' + policyId + '/resiliation');
+                                        }}>
                                         <FontAwesomeIcon icon={faBan} width={24} height={24} className="text-pink-500" />
                                         <span>
                                             Résilier mon contrat
