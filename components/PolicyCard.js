@@ -16,7 +16,7 @@ export default function PolicyCard({ policy, onClick, className }) {
 
     if (vw < config.breakpoints.md) {
         return <>
-            <div onClick={onClick} className={`relative bg-white rounded-lg border-2 border-gray-200 p-4 gap-4 flex flex-col items-center justify-between cursor-pointer hover:bg-gray-100 ${className ?? ''}`}>
+            <div onClick={onClick} className={`relative bg-white rounded-lg border-2 border-gray-200 p-4 gap-4 flex flex-col items-center justify-between cursor-pointer hover:opacity-50 ${className ?? ''}`}>
                 <div className={`absolute top-0 right-0 ${policy?.status === 'active' ? 'success-dark' : 'blue-500'} text-white px-2 py-1 rounded-bl-lg rounded-tr-lg uppercase text-xs font-bold`}>
                     {ucfirst(statusLabelMappping[policy?.status ?? 'pending']) ?? statusLabelMappping['default']}
                 </div>
@@ -92,7 +92,7 @@ export default function PolicyCard({ policy, onClick, className }) {
 
                         <div className="flex items-center justify-end gap-2 w-full">
 
-                            <div className="flex items-center bg-gray-50 p-4 rounded-xl justify-between relative cursor-pointer hover:bg-gray-100 w-full gap-24">
+                            <div className="flex items-center bg-gray-50 p-4 rounded-xl justify-between relative cursor-pointer hover:opacity-50 w-full gap-24">
                                 <div className="text-xl">
                                     Formule <br />
                                     <span>

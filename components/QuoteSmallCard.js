@@ -4,7 +4,7 @@ import { formatEuro, ucfirst } from "@/utils/format";
 
 export default function QuoteSmallCard({ quote, onClick }) {
     return <>
-        <div className="flex justify-between items-center bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:bg-gray-100" onClick={onClick}>
+        <div className="flex justify-between items-center bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:opacity-50" onClick={onClick}>
             <div className="text-foreground text-xl font-bold">
                 {ucfirst(quote?.product?.type) ?? '...'}
             </div>

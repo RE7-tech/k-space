@@ -14,7 +14,7 @@ export default function QuoteCard({ quote, onClick }) {
 
     if (vw < config.breakpoints.md) {
         return <>
-            <div className="bg-white rounded-md border-2 border-gray-200 p-4 gap-2 flex flex-col items-center justify-between cursor-pointer hover:bg-gray-100" onClick={onClick}>
+            <div className="bg-white rounded-md border-2 border-gray-200 p-4 gap-2 flex flex-col items-center justify-between cursor-pointer hover:opacity-50" onClick={onClick}>
                 <div className="flex items-center justify-between mb-2 w-full">
                     <div className="flex items-center gap-4">
                         <div>
@@ -111,7 +111,7 @@ export default function QuoteCard({ quote, onClick }) {
 
                         <div className="flex items-center justify-end gap-2 w-full">
 
-                            <div className="flex items-center bg-gray-50 p-4 rounded-xl justify-between relative cursor-pointer hover:bg-gray-100 w-full gap-24">
+                            <div className="flex items-center bg-gray-50 p-4 rounded-xl justify-between relative cursor-pointer hover:opacity-50 w-full gap-24">
                                 <div className="text-gray-500 text-xl">
                                     Formule <br />
                                     <span className="uppercase">

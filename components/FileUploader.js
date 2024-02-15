@@ -5,7 +5,7 @@ import { faTimes, faSpinner, faCheckCircle, faExclamationTriangle } from "@forta
 
 export function SelectedFile({ file, onDelete, isUploading = false, isUploaded = false, isUploadFailed = false }) {
     return <>
-        <div className={`flex items-center gap-4 bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:bg-gray-100 justify-between ${isUploading ? 'opacity-50' : ''} ${isUploaded ? 'bg-green-100 border-green-400' : ''} ${isUploadFailed ? 'bg-red-100 border-red-400' : ''}`}>
+        <div className={`flex items-center gap-4 bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:opacity-50 justify-between ${isUploading ? 'opacity-50' : ''} ${isUploaded ? 'bg-green-100 border-green-400' : ''} ${isUploadFailed ? 'bg-red-100 border-red-400' : ''}`}>
             {isUploading && <FontAwesomeIcon icon={faSpinner} width={18} height={18} spin className="text-gray-400" />}
             {isUploaded && <FontAwesomeIcon icon={faCheckCircle} width={18} height={18} className="text-green-400" />}
             {isUploadFailed && <FontAwesomeIcon icon={faExclamationTriangle} width={18} height={18} className="text-red-400" />}

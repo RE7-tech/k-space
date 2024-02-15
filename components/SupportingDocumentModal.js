@@ -13,7 +13,7 @@ import Image from "next/image";
 
 export function SupportingDocumentChoice({ choice, onClick }) {
     return <>
-        <div onClick={onClick} className="flex flex-col items-center justify-center gap-4 flex-1 bg-gray-200 rounded-md p-4 cursor-pointer hover:bg-gray-100">
+        <div onClick={onClick} className="flex flex-col items-center justify-center gap-4 flex-1 bg-gray-200 rounded-md p-4 cursor-pointer hover:opacity-50">
             <h4 className="text-xl font-bold text-blue-900 text-center">
                 {choice?.value}
             </h4>

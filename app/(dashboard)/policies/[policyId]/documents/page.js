@@ -17,7 +17,7 @@ import { downloadDocument } from "@/lib/api/documents";
 
 export function DocumentListItem({ document, onClick }) {
     return <>
-        <div className="flex items-center justify-between py-4 text-lg rounded-md items-center justify-between hover:bg-gray-100 cursor-pointer hover:p-4" onClick={() => onClick(document)}>
+        <div className="flex items-center justify-between py-4 text-lg rounded-md items-center justify-between hover:opacity-50 cursor-pointer hover:p-4" onClick={() => onClick(document)}>
             <span>{document?.label || document?.name || "..."}</span>
             <div className="flex items-center gap-4">
                 {document?.status && <Badge variant="success" className="text-white">{document?.status ?? "..."}</Badge>}

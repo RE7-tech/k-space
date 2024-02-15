@@ -8,7 +8,7 @@ export default function Accordeon({ isOpen = true, title, children, className })
     const [isOpened, setIsOpened] = useState(isOpen);
 
     return <>
-        <div className={`border shadow-opaque border-gray-300 rounded-md p-4 mb-4 hover:bg-gray-100 cursor-pointer ${className}`}>
+        <div className={`border shadow-opaque border-gray-300 rounded-md p-4 mb-4 hover:opacity-50 cursor-pointer ${className}`}>
             <div onClick={() => setIsOpened(!isOpened)} className={`flex flex-row justify-between items-center ${isOpened ? 'pb-4' : ''}`}>
                 {title}
                 <FontAwesomeIcon icon={faPlus} width={18} height={18} className={`text-gray-400 transition-all duration-500 ease-in-out transform ${isOpened ? 'rotate-45' : ''}`} />

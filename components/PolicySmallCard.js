@@ -19,7 +19,7 @@ export default function PolicySmallCard({ policy, isBordered = false, onClick })
 
     if (vw < config.breakpoints.md) {
         return <>
-            <div onClick={onClick} className={`flex bg-gray-50 flex-row items-center gap-4 p-4 justify-between rounded-md flex-1 rounded-xl relative cursor-pointer hover:bg-gray-100 ${isBordered ? 'border border-gray-200' : ''} `}>
+            <div onClick={onClick} className={`flex bg-gray-50 flex-row items-center gap-4 p-4 justify-between rounded-md flex-1 rounded-xl relative cursor-pointer hover:opacity-50 ${isBordered ? 'border border-gray-200' : ''} `}>
                 <Image src={productIcons[policy.product?.type]} width={59} height={59} alt="" />
                 
                 <div className="flex items-start gap-1 flex-col">
@@ -35,7 +35,7 @@ export default function PolicySmallCard({ policy, isBordered = false, onClick })
             </div>
         </>
     } else {
-        return <div className="flex flex-col gap-4 bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:bg-gray-100" onClick={onClick}>
+        return <div className="flex flex-col gap-4 bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:opacity-50" onClick={onClick}>
             <FontAwesomeIcon width={18} height={18} className="absolute top-[25px] right-[25px] text-gray-400" icon={faChevronRight} size="lg" />
             <Image src={productIcons[policy.product?.type]} width={59} height={59} className="mb-2" alt="" />
             <span className="uppercase text-xs text-gray-500 font-bold">N°{policy?.id ?? '...'}</span>

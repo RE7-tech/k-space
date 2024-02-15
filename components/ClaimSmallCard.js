@@ -5,7 +5,7 @@ import { ucfirst } from "@/utils/format";
 import { statusLabelMappping } from "@/utils/claims";
 
 export default function ClaimSmallCard({ claim, onClick }) {
-    return <div className="flex items-center justify-between bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:bg-gray-100" onClick={onClick}>
+    return <div className="flex items-center justify-between bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:opacity-50" onClick={onClick}>
 
         <div className="flex items-center gap-2">
             <span className="text-gray-500 text-xl font-bold">

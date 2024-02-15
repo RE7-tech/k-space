@@ -183,7 +183,7 @@ export default function Home() {
                 </div>
               </>}>
 
-                <div className="bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:bg-gray-100">
+                <div className="bg-gray-50 p-4 rounded-md flex-1 rounded-xl relative cursor-pointer hover:opacity-50">
 
                   {/* Mobile: col, Desktop: row */}
                   <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
