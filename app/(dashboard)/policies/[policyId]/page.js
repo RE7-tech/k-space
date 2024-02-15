@@ -86,7 +86,7 @@ export default function Policy({ params }) {
     const hasPendingTermination = () => {
         if (!policy?.terminations) return false;
 
-        return policy?.terminations?.find(termination => ['pending'].includes(termination?.status?.toLowerCase())) ?? false;
+        return policy?.terminations?.find(termination => ['pending', 'processing'].includes(termination?.status?.toLowerCase())) ?? false;
     }
 
     const hasDeclinedTermination = () => {
