@@ -11,6 +11,7 @@ import { getPolicy } from "@/lib/api/policies";
 import { useRouter } from "next/navigation";
 import { createTermination } from "@/lib/api/terminations";
 import { addTerminationAttachment } from "@/lib/api/terminations";
+import Loader from "@/components/Loader";
 
 export default function Resiliation({ params }) {
 
@@ -18,11 +19,11 @@ export default function Resiliation({ params }) {
     const maxSteps = 10;
 
     const [reasons, setReasons] = useState([
-        { value: 'Je vends mon véhicule', label: 'Je vends mon véhicule', product_type: ['cyclo', 'moto', 'vsp'] },
-        { value: 'Je donne mon véhicule', label: 'Je donne mon véhicule', product_type: ['cyclo', 'moto', 'vsp'] },
+        { value: 'Je vends mon véhicule', label: 'Je vends mon véhicule', product_type: ['cyclo', 'moto', 'vsp'], is_pv_needed: true, is_grey_card_needed: true },
+        { value: 'Je donne mon véhicule', label: 'Je donne mon véhicule', product_type: ['cyclo', 'moto', 'vsp'], is_pv_needed: true, is_grey_card_needed: true },
         { value: 'Je mets mon véhicule à la casse', label: 'Je mets mon véhicule à la casse', product_type: ['cyclo', 'moto', 'vsp'] },
         { value: 'Je change d\'assureur', label: 'Je change d\'assureur', product_type: ['cyclo', 'moto', 'vsp'] },
-        { value: 'Je change de véhicule', label: 'Je change de véhicule', product_type: ['cyclo', 'moto', 'vsp'] },
+        { value: 'Je change de véhicule', label: 'Je change de véhicule', product_type: ['cyclo', 'moto', 'vsp'], is_pv_needed: true, is_grey_card_needed: true },
         { value: 'Retraction', label: 'Je me rétracte', product_type: ['cyclo', 'moto', 'vsp'] },
         { value: 'Déménagement', label: 'Je déménage', product_type: ['mrh', 'home', 'habitation'] },
         { value: 'Loi chatel', label: 'Je souhaite résilier dans le cadre de la loi Chatel', product_type: ['mrh', 'home', 'habitation'] },
@@ -41,6 +42,9 @@ export default function Resiliation({ params }) {
     const [policy, setPolicy] = useState({});
     const [policyLoading, setPolicyLoading] = useState(true);
     const [isSending, setIsSending] = useState(false);
+
+    const [isPVNeeded, setPVNeeded] = useState(false);
+    const [isGreyCardNeeded, setIsGreyCardNeeded] = useState(false);
 
     const filesRef = {
         grey_card: useRef(null),
@@ -67,14 +71,25 @@ export default function Resiliation({ params }) {
     }
 
     const nextStep = () => {
+
+        if (step == 2) {
+            if (isPVNeeded && !hasFile('certificate_of_transfer')) {
+                return alert('Le certificat de cession est obligatoire');
+            }
+
+            if (isGreyCardNeeded && !hasFile('grey_card')) {
+                return alert('La carte grise est obligatoire');
+            }
+        }
+
         setStep(step + 1);
     }
 
     const loadPolicy = async () => {
+        setPolicyLoading(true);
         try {
             const policy = await getPolicy(policyId);
-            setPolicy(policy);
-            setPolicyLoading(false);
+            setPolicy(policy.data?.data);
         } catch (e) {
             console.log(e);
         } finally {
@@ -109,20 +124,75 @@ export default function Resiliation({ params }) {
 
     useEffect(() => {
 
-        if (!policy) {
+        if (step === 2) {
+            if (['mrh', 'habitation', 'home'].includes(policy?.product?.type) || (
+                !isPVNeeded && !isGreyCardNeeded
+            )
+            ) {
+                setStep(3);
+            }
+        }
+
+    }, [step]);
+
+
+    useEffect(() => {
+
+        if (!termination.reason) {
+            return;
+        }
+
+        const reason = reasons.find((reason) => {
+            return reason.value === termination.reason;
+        });
+
+        if (!reason) {
+            return;
+        }
+
+        if (reason.is_pv_needed) {
+            setPVNeeded(true);
+        }
+
+        if (reason.is_grey_card_needed) {
+            setIsGreyCardNeeded(true);
+        }
+
+    }, [termination.reason]);
+
+    useEffect(() => {
+
+        console.log('policy', policy);
+
+        if (!policy.id || !policy.product?.type) {
             return;
         }
 
         setReasons((prevState) => {
             return prevState.filter((reason) => {
+                console.log('debug', reason.product_type, policy.product?.type, reason.product_type.includes(policy.product?.type));
                 return reason.product_type.includes(policy.product?.type);
             });
+        });
+
+        setTermination((prevState) => {
+            return {
+                ...prevState,
+                policyId: policy.id,
+                email: policy.customer?.primary_email,
+                lastname: policy.customer?.lastname,
+                firstname: policy.customer?.firstname,
+            };
         });
 
     }, [policy]);
 
     if (policyLoading) {
-        return <>Chargement...</>
+        return <>
+            <Page>
+                <Loader />
+            </Page>
+        </>
     }
 
     return <>
@@ -155,6 +225,7 @@ export default function Resiliation({ params }) {
                             name="lastname"
                             placeholder="Nom"
                             type="text"
+                            value={termination?.lastname}
                             required
                             onChange={handleChange}
                         />
@@ -164,6 +235,7 @@ export default function Resiliation({ params }) {
                             name="firstname"
                             placeholder="Prénom"
                             type="text"
+                            value={termination?.firstname}
                             required
                             onChange={handleChange}
                         />
@@ -174,12 +246,14 @@ export default function Resiliation({ params }) {
                             placeholder="E-mail"
                             type="email"
                             required
+                            value={policy?.customer?.primary_email}
                             onChange={handleChange}
                         />
 
                         <InputField
                             label={`Numéro de contrat`}
                             name="policyId"
+                            value={termination?.policyId}
                             placeholder="Numéro de contrat"
                             type="text"
                             required
@@ -193,6 +267,7 @@ export default function Resiliation({ params }) {
                             placeholder="Motif de résiliation"
                             type="select"
                             required
+                            value={termination?.reason}
                             onChange={handleChange}
                         />
                     </div>
@@ -209,7 +284,7 @@ export default function Resiliation({ params }) {
                         Ils sont obligatoires pour enregistrer votre résiliation.
                     </div>
 
-                    <div className="flex flex-col gap-4 mt-4 relative">
+                    {isPVNeeded ? <div className="flex flex-col gap-4 mt-4 relative">
                         {hasFile('certificate_of_transfer') ? <FontAwesomeIcon icon={faTimes} className="text-red-500 cursor-pointer hover:text-red-800 absolute top-2 right-2" onClick={() => {
                             setDocuments({ ...documents, pv: false });
                         }} /> : null}
@@ -226,11 +301,11 @@ export default function Resiliation({ params }) {
                                 </Button>
                             </>}
                         </div>
-                    </div>
+                    </div> : null}
 
-                    <div className="flex flex-col gap-4 mt-4 relative">
+                    {isGreyCardNeeded ? <div className="flex flex-col gap-4 mt-4 relative">
                         {hasFile('grey_card') ? <FontAwesomeIcon icon={faTimes} className="text-red-500 cursor-pointer hover:text-red-800 absolute top-2 right-2" onClick={() => {
-                            setDocuments({ ...documents, pv: false });
+                            setDocuments({ ...documents, grey_card: false });
                         }} /> : null}
                         <div className="flex flex-row justify-between items-center border border-gray-300 rounded-md p-4">
                             <span>
@@ -245,7 +320,7 @@ export default function Resiliation({ params }) {
                                 </Button>
                             </>}
                         </div>
-                    </div>
+                    </div> : null}
                 </> : null}
 
                 {step === 3 ? <>
@@ -283,7 +358,7 @@ export default function Resiliation({ params }) {
                 </> : null}
 
                 {step === 4 ? <>
-                    <div className="mx-auto flex flex-col items-start gap-4 text-center">
+                    <div className="mx-auto flex flex-col items-center gap-4 text-center">
 
                         <div className="mb-8 mx-auto">
                             <svg width="144" height="75" viewBox="0 0 144 75" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -308,6 +383,8 @@ export default function Resiliation({ params }) {
                                     </clipPath>
                                 </defs>
                             </svg>
+
+                            
                         </div>
 
                         <p>Votre demande a bien été enregistrée auprès de nos services.<br />
@@ -327,7 +404,7 @@ export default function Resiliation({ params }) {
 
                     {step != 4 ? <>
                         <div className="flex flex-row justify-between mt-8">
-                            {step > 1 ? <Button variant="outline_primary" size="lg">
+                            {step > 1 ? <Button variant="outline_primary" size="lg" onClick={() => setStep(step - 1)}>
                                 Précédent
                             </Button> : <div></div>}
 
@@ -345,8 +422,6 @@ export default function Resiliation({ params }) {
                     </>}
 
                 </>}
-
-
 
             </div>
         </Page>
