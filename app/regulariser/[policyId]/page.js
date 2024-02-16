@@ -178,7 +178,7 @@ export default function Regulariser({ params }) {
                     </span>
                 </div>
 
-                {(transactions || [])?.map((transaction, index) => {
+                {/* {(transactions || [])?.map((transaction, index) => {
                     return <Card className={`mt-4 mb-4`} key={index} header={<>
                         <div onClick={() => setIsTransactionsOpen(!isTransactionsOpen)} className="flex flex-row justify-between cursor-pointer items-center">
                             <span className="font-semibold">
@@ -200,9 +200,9 @@ export default function Regulariser({ params }) {
                             </span>
                         </div>
                     </Card>
-                })}
+                })} */}
 
-                <Card className={`mt-2`}>
+                <Card className={`mt-2`} sizeMode={'adaptive'}>
                     <Elements stripe={stripePromise} options={{ clientSecret: clientSecret }}>
                         <CheckoutForm policyId={policyId} onPaymentFailure={(result) => { setErrors(result.error) }} onPaymentSuccess={(result) => { console.log('result', result) }} />
                     </Elements>
