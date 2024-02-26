@@ -25,7 +25,8 @@
     "react-select": "^5.8.0",
     "react-viewport-hooks": "^1.5.0",
     "stripe": "^14.13.0",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "@highlight-run/next" : "latest"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
