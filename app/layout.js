@@ -4,7 +4,7 @@ import React from 'react';
 import { DrawerProvider } from '@/context/DrawerContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { CustomerProvider } from '@/context/CustomerContext';
-import { HighlightInit } from '@highlight-run/next/client'
+import { HighlightInit } from '@highlight-run/next/client';
 
 const inter = Figtree({
   weights: [400, 500, 600, 700, 900],
