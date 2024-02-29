@@ -221,6 +221,17 @@ export default function Resiliation({ params }) {
 
                     <div className="flex flex-col gap-4 mt-4 relative">
                         <InputField
+                            choices={reasons}
+                            label={`Motif de résiliation`}
+                            name="reason"
+                            placeholder="Motif de résiliation"
+                            type="select"
+                            required
+                            value={termination?.reason}
+                            onChange={handleChange}
+                        />
+
+                        <InputField
                             label={`Nom`}
                             name="lastname"
                             placeholder="Nom"
@@ -260,16 +271,7 @@ export default function Resiliation({ params }) {
                             onChange={handleChange}
                         />
 
-                        <InputField
-                            choices={reasons}
-                            label={`Motif de résiliation`}
-                            name="reason"
-                            placeholder="Motif de résiliation"
-                            type="select"
-                            required
-                            value={termination?.reason}
-                            onChange={handleChange}
-                        />
+
                     </div>
 
                 </> : null}
@@ -384,7 +386,7 @@ export default function Resiliation({ params }) {
                                 </defs>
                             </svg>
 
-                            
+
                         </div>
 
                         <p>Votre demande a bien été enregistrée auprès de nos services.<br />
