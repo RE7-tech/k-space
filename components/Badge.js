@@ -1,6 +1,6 @@
 export default function Badge({ variant, children }) {
     const colors = {
-        red: 'bg-red-500',
+        red: 'bg-rose-500',
         green: 'bg-green-500',
         blue: 'bg-blue-500',
         yellow: 'bg-yellow-500',
@@ -9,7 +9,7 @@ export default function Badge({ variant, children }) {
         pink: 'bg-pink-500',
         success: 'bg-success-dark',
         warning: 'bg-yellow-400',
-        danger: 'bg-red-500',
+        danger: 'bg-rose-500',
     };
 
     return <span className={`px-2 py-1 w-fit-content rounded-full text-xs font-bold text-white ${colors[variant] ?? colors['blue']}`}>
