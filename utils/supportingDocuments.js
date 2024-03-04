@@ -29,16 +29,21 @@ const statusBadgeMap = (sd) => {
     switch (sd?.status?.toLowerCase()) {
         case 'validated':
         case 'accepted':
+        case 'accepted_auto':
             return <Badge variant="success" className="text-white">Validé</Badge>;
+        case 'partial_approval':
+            return <Badge variant="warning" className="text-white">Validé partiellement</Badge>;
+        case 'manual':
         case 'pending':
             return <Badge variant="info" className="text-white">En cours</Badge>;
         case 'refused':
         case 'rejected':
+        case 'rejected_auto':
             return <Badge variant="danger" className="text-white">Refusé</Badge>;
         case 'missing':
             return <Badge variant="warning" className="text-white">Manquant</Badge>;
         default:
-            return <Badge variant="success" className="text-white">Validé</Badge>;
+            return <Badge variant="success" className="text-white">{sd?.status}</Badge>;
     }
 };
 
