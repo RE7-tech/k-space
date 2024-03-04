@@ -9,7 +9,7 @@ export default function Badge({ variant, children }) {
         pink: 'bg-pink-500',
         success: 'bg-success-dark',
         warning: 'bg-yellow-400',
-        danger: 'bg-danger-dark',
+        danger: 'bg-red-500',
     };
 
     return <span className={`px-2 py-1 w-fit-content rounded-full text-xs font-bold text-white ${colors[variant] ?? colors['blue']}`}>
