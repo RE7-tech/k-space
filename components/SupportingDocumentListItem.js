@@ -8,9 +8,23 @@ import Badge from '@/components/Badge';
 import { supportingDocumentIcons } from '@/utils/supportingDocuments';
 import { statusBadgeMap } from '@/utils/supportingDocuments';
 
+
 export default function SupportingDocumentListItem({ supportingDocument, onClick, hasBorderBottom = true }) {
 
     const sd = supportingDocument;
+
+    function canViewSupportingDocument(sd) {
+        return [
+            'validated',
+            'accepted',
+            'pending',
+            'approved',
+            'approved_auto',
+            'accepted_auto',
+            'validated_auto',
+        ].includes(sd?.status?.toLowerCase());
+    }
+
 
     return <>
         <div className={`flex items-center justify-between py-4 ${hasBorderBottom ? 'border-b border-gray-100' : ''} cursor-pointer hover:opacity-80`} onClick={onClick}>
@@ -23,7 +37,7 @@ export default function SupportingDocumentListItem({ supportingDocument, onClick
                     {statusBadgeMap(sd)}
                 </div>
             </div>
-            {['validated', 'accepted', 'pending'].includes(sd?.status?.toLowerCase()) ? <>
+            {canViewSupportingDocument(sd) ? <>
                 <FontAwesomeIcon icon={faEye} width={18} height={18} className="text-gray-400" />
             </> : null}
         </div>

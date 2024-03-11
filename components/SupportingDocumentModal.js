@@ -40,6 +40,7 @@ export default function SupportingDocumentModal({ supportingDocument, policy, on
     const [isMergeLoading, setIsMergeLoading] = useState(false);
     const [fusionUrl, setFusionUrl] = useState(null);
     const [fusionData, setFusionData] = useState(null);
+    const [currentPartLoading, setCurrentPartLoading] = useState(true);
 
     const [maxFiles, setMaxFiles] = useState(1);
 
@@ -143,6 +144,9 @@ export default function SupportingDocumentModal({ supportingDocument, policy, on
     }
 
     const getNextPart = () => {
+
+        setCurrentPartLoading(false);
+
         if (Object.keys(parts).length > 0) {
             return parts.find(p => !completedParts.includes(p.key));
         } else if (Object.keys(currentChoice?.parts ?? {}).length > 0) {
@@ -245,8 +249,14 @@ export default function SupportingDocumentModal({ supportingDocument, policy, on
     }, [currentChoice]);
 
     useEffect(() => {
+
+        setCurrentPartLoading(true);
+
+        setTimeout(() => {
+            setCurrentPart(getNextPart());
+        }, 500);
+
         // Show next part
-        setCurrentPart(getNextPart());
 
         // If all parts are completed
         if (isAllPartsCompleted()) {
@@ -292,7 +302,6 @@ export default function SupportingDocumentModal({ supportingDocument, policy, on
                             {supportingDocument?.label ?? '...'}
                         </h4>
 
-
                         <div className="flex items-center gap-4">
                             {statusBadgeMap(supportingDocument)}
 
@@ -317,115 +326,129 @@ export default function SupportingDocumentModal({ supportingDocument, policy, on
                 </> : null}
 
                 {/* If no choice was made yet and there are choices */}
-                {currentChoice === null && (choices ?? []).length > 0 ? <>
-                    <div className="flex flex-row gap-4 pb-4">
 
-                        {(choices ?? []).map((choice, idx) => {
-                            return <>
-                                <SupportingDocumentChoice key={idx} choice={choice} onClick={() => setCurrentChoice(choice)} />
-                            </>
-                        })}
-
+                {currentPartLoading ? <>
+                    <div className="flex items-center justify-center flex-col gap-4">
+                        <FontAwesomeIcon icon={faSpinner} size="6x" className="text-gray-400" spin />
+                        <p>
+                            Chargement, veuillez patienter...
+                        </p>
                     </div>
-                </> : null}
+                </> : <>
 
-                {currentChoice !== null && currentPart ? <>
-                    <div className="flex flex-col gap-4 pb-4">
+                    {currentChoice === null && (choices ?? []).length > 0 ? <>
+                        <div className="flex flex-row gap-4 pb-4">
 
-                        {currentPart.key !== 'FULL' ? <div className="text-gray-500">
-                            Veuillez déposer le <strong>{currentPart.value}</strong> de votre <strong>{currentChoice.value}</strong>.
-                        </div> : <>
-                            {supportingDocument?.metadata?.description ? <p className="text-gray-500">
-                                {supportingDocument?.metadata?.description ?? '...'}
-                            </p> : null}
-                        </>}
 
-                        {/* Upload */}
-                        <FileUploader
-                            isDisabled={isFileUploaderDisabled()}
-                            onChange={handleFileChange}
-                            accept={acceptedFileTypes}
-                            maxSize={maxFileSize} />
-
-                        {/* Files states */}
-                        <div className="flex flex-col gap-4 max-h-[200px] pr-2 overflow-y-auto">
-                            {(files ?? [])?.map((file, index) => {
-                                return <SelectedFile
-                                    key={index}
-                                    file={file}
-                                    onDelete={handleFileDelete}
-                                    isUploading={filesStates[file?.name]?.isUploading}
-                                    isUploaded={filesStates[file?.name]?.isUploaded}
-                                    isUploadFailed={filesStates[file?.name]?.isUploadFailed}
-                                />
+                            {(choices ?? []).map((choice, idx) => {
+                                return <>
+                                    <SupportingDocumentChoice key={idx} choice={choice} onClick={() => setCurrentChoice(choice)} />
+                                </>
                             })}
+
                         </div>
+                    </> : null}
 
-                        <Button variant="primary" className="w-full" onClick={handleSubmit} isLoading={isUploading} disabled={!canSendFiles()}>
-                            Envoyer
-                        </Button>
+                    {currentChoice !== null && currentPart ? <>
+                        <div className="flex flex-col gap-4 pb-4">
 
-                    </div>
-                </> : null}
+                            {currentPart.key !== 'FULL' ? <div className="text-gray-500">
+                                Veuillez déposer le <strong>{currentPart.value}</strong> de votre <strong>{currentChoice.value}</strong>.
+                            </div> : <>
+                                {supportingDocument?.metadata?.description ? <p className="text-gray-500">
+                                    {supportingDocument?.metadata?.description ?? '...'}
+                                </p> : null}
+                            </>}
 
-                {/* When all parts are completed and merge is not validated */}
-                {currentChoice !== null && isAllPartsCompleted() && !isMergeValidated ? <>
-                    <div className="flex flex-col gap-4 pb-4">
+                            {/* Upload */}
+                            <FileUploader
+                                isDisabled={isFileUploaderDisabled()}
+                                onChange={handleFileChange}
+                                accept={acceptedFileTypes}
+                                maxSize={maxFileSize} />
 
-                        {isMergeLoading ? <>
+                            {/* Files states */}
+                            <div className="flex flex-col gap-4 max-h-[200px] pr-2 overflow-y-auto">
+                                {(files ?? [])?.map((file, index) => {
+                                    return <SelectedFile
+                                        key={index}
+                                        file={file}
+                                        onDelete={handleFileDelete}
+                                        isUploading={filesStates[file?.name]?.isUploading}
+                                        isUploaded={filesStates[file?.name]?.isUploaded}
+                                        isUploadFailed={filesStates[file?.name]?.isUploadFailed}
+                                    />
+                                })}
+                            </div>
+
+                            <Button variant="primary" className="w-full" onClick={handleSubmit} isLoading={isUploading} disabled={!canSendFiles()}>
+                                Envoyer
+                            </Button>
+
+                        </div>
+                    </> : null}
+
+                    {/* When all parts are completed and merge is not validated */}
+                    {currentChoice !== null && isAllPartsCompleted() && !isMergeValidated ? <>
+                        <div className="flex flex-col gap-4 pb-4">
+
+                            {isMergeLoading ? <>
+                                <div className="flex items-center justify-center mx-auto">
+                                    <FontAwesomeIcon icon={faSpinner} size="6x" className="text-gray-400" spin />
+                                </div>
+
+                                <div className="text-gray-500 text-center text-2xl">
+                                    Veuillez patienter nous sommes en train de fusionner vos pièces justificatives.
+                                </div>
+                            </> : null}
+
+                            <div className="flex items-center justify-center mx-auto max-h-[400px] overflow-y-auto">
+
+                                {/* <img src={`${fusionUrl}`} alt="resulat de la fusion" /> */}
+                                <Image src={`${fusionUrl ?? '/test.png'}`} alt="resulat de la fusion" width={400} height={250} />
+
+                            </div>
+
+                            <div className="flex flex-row justify-between items-center gap-4">
+
+                                <Button variant="outline_primary" className="w-full" onClick={onClose}>
+                                    Recommencer
+                                </Button>
+
+                                {Object.keys(error ?? {}).length <= 0 ? <Button variant="primary" className="w-full" onClick={handleValidateUpload} isLoading={isUploading}>
+                                    Valider
+                                </Button> : null}
+
+                            </div>
+
+                        </div>
+                    </> : null}
+
+                    {currentChoice !== null && isAllPartsCompleted() && isMergeValidated ? <>
+                        <div className="flex flex-col gap-4 pb-4">
+
                             <div className="flex items-center justify-center mx-auto">
-                                <FontAwesomeIcon icon={faSpinner} size="6x" className="text-gray-400" spin />
+                                <FontAwesomeIcon icon={faCheckCircle} size="6x" className="text-green-500" />
                             </div>
 
                             <div className="text-gray-500 text-center text-2xl">
-                                Veuillez patienter nous sommes en train de fusionner vos pièces justificatives.
+                                Merci pour votre envoi !
                             </div>
-                        </> : null}
 
-                        <div className="flex items-center justify-center mx-auto max-h-[400px] overflow-y-auto">
+                            <p className="text-gray-500 text-center">
+                                Nous allons procéder à la validation de votre pièce justificative dans les plus brefs délais.
+                            </p>
 
-                            {/* <img src={`${fusionUrl}`} alt="resulat de la fusion" /> */}
-                            <Image src={`${fusionUrl}`} alt="resulat de la fusion" width={"auto"} height={"auto"} />
-
-                        </div>
-
-                        <div className="flex flex-row justify-between items-center gap-4">
-
-                            <Button variant="outline_primary" className="w-full" onClick={onClose}>
-                                Recommencer
+                            <Button variant="primary" className="w-full" onClick={onClose}>
+                                Fermer
                             </Button>
 
-                            {Object.keys(error ?? {}).length <= 0 ? <Button variant="primary" className="w-full" onClick={handleValidateUpload} isLoading={isUploading}>
-                                Valider
-                            </Button> : null}
-
                         </div>
+                    </> : null}
 
-                    </div>
-                </> : null}
 
-                {/* When all parts are completed and merge is validated */}
-                {currentChoice !== null && isAllPartsCompleted() && isMergeValidated ? <>
-                    <div className="flex flex-col gap-4 pb-4">
+                </>}
 
-                        <div className="flex items-center justify-center mx-auto">
-                            <FontAwesomeIcon icon={faCheckCircle} size="6x" className="text-green-500" />
-                        </div>
-
-                        <div className="text-gray-500 text-center text-2xl">
-                            Merci pour votre envoi !
-                        </div>
-
-                        <p className="text-gray-500 text-center">
-                            Nous allons procéder à la validation de votre pièce justificative dans les plus brefs délais.
-                        </p>
-
-                        <Button variant="primary" className="w-full" onClick={onClose}>
-                            Fermer
-                        </Button>
-
-                    </div>
-                </> : null}
             </div>
         </div>
 
