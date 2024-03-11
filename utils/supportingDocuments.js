@@ -32,17 +32,22 @@ const statusBadgeMap = (sd) => {
         case 'approved':
         case 'approved_auto':
         case 'accepted_auto':
+        case 'validated_auto':
             return <Badge variant="success" className="text-white">Validé</Badge>;
         case 'partial_approval':
+        case 'partial':
+        case 'partially_accepted':
             return <Badge variant="warning" className="text-white">Validé partiellement</Badge>;
         case 'manual':
         case 'pending':
+        case 'processing':
             return <Badge variant="info" className="text-white">En cours</Badge>;
         case 'refused':
         case 'rejected':
         case 'declined':
         case 'declined_auto':
         case 'rejected_auto':
+        case 'refused_auto':
             return <Badge variant="danger" className="text-white">Refusé</Badge>;
         case 'missing':
             return <Badge variant="warning" className="text-white">Manquant</Badge>;
