@@ -1,3 +1,5 @@
+'use client';
+
 import Page from "@/components/Page";
 import PageTitle from "@/components/PageTitle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,9 +20,7 @@ export default function Help({ }) {
                 <div className="mt-8">
 
                     <p>
-                        Besoin d’aide sur l’espace client ? Votre espace personnel n’aura plus de secret pour vous grâce à notre <a href="#" className="text-blue-800 underline">
-                            tuto en 4 clics
-                        </a>
+                        Besoin d’aide sur l’espace client ? Vous trouverez ici différents moyens de nous contacter.
                     </p>
 
                     <h5 className="mt-8 text-xl mb-4">
@@ -29,7 +29,7 @@ export default function Help({ }) {
 
                     <div className="gap-4 mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
 
-                        <ColoredCard color="yellow" className="flex flex-col gap-4 justify-center items-center">
+                        <ColoredCard color="yellow" className="flex flex-col gap-4 justify-center items-center" onClick={() => window.open('https://klian.fr', '_blank')}>
 
                             <FontAwesomeIcon icon={faMessage} width={18} height={18} className="" size="lg" />
 
@@ -37,7 +37,7 @@ export default function Help({ }) {
 
                         </ColoredCard>
 
-                        <ColoredCard color="green" className="flex flex-col gap-4 justify-center items-center">
+                        <ColoredCard color="green" className="flex flex-col gap-4 justify-center items-center" onClick={() => window.open('https://api.whatsapp.com/send/?phone=278848484&text&type=phone_number&app_absent=0', '_blank')}>
 
                             <FontAwesomeIcon icon={faWhatsapp} width={18} height={18} className="" size="lg" />
 
@@ -45,7 +45,7 @@ export default function Help({ }) {
 
                         </ColoredCard>
 
-                        <ColoredCard color="blue" className="flex flex-col gap-4 justify-center items-center">
+                        <ColoredCard color="blue" className="flex flex-col gap-4 justify-center items-center" onClick={() => window.open('https://fb.com/klianfr', '_blank')}>
 
                             <FontAwesomeIcon icon={faFacebookMessenger} width={18} height={18} className="" size="lg" />
 
@@ -53,11 +53,11 @@ export default function Help({ }) {
 
                         </ColoredCard>
 
-                        <ColoredCard color="red" className="flex flex-col gap-4 justify-center items-center">
+                        <ColoredCard color="red" className="flex flex-col gap-4 justify-center items-center" onClick={() => window.open('tel:0278848484', '_blank')}>
 
                             <FontAwesomeIcon icon={faPhone} width={18} height={18} className="" size="lg" />
 
-                            02 123 45 67
+                            02 78 84 84 84
 
                         </ColoredCard>
 

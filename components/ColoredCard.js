@@ -1,4 +1,6 @@
-export default function ColoredCard ({ children, color, className }) {
+'use client';
+
+export default function ColoredCard ({ children, color, className, onClick }) {
 
 
     const colors = {
@@ -12,7 +14,7 @@ export default function ColoredCard ({ children, color, className }) {
 
     const classNames = `p-4 rounded-xl border-2 ${className ?? ''} ${colors[color] ?? colors['blue']}`;
 
-    return <div className={`${classNames}`}>
+    return <div className={`${classNames}`} onClick={onClick}>
         {children}
     </div>
 }
