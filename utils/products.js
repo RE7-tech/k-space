@@ -2,6 +2,7 @@ import ProductIconCyclo from "@/public/products/cyclo.svg"
 import ProductIconMoto from "@/public/products/moto.svg"
 import ProductIconVSP from "@/public/products/vsp.svg"
 import ProductIconHome from "@/public/products/home.svg"
+import ProductIconEDPM from "@/public/products/edpm.svg"
 
 const productIcons = {
     "cyclo": ProductIconCyclo,
@@ -9,6 +10,7 @@ const productIcons = {
     "vsp": ProductIconVSP,
     "home": ProductIconHome,
     "mrh": ProductIconHome,
+    "edpm": ProductIconEDPM,
 }
 
 const products = {
@@ -59,6 +61,11 @@ const products = {
         type: 'bike',
         icon: ProductIconHome,
     },
+    'edpm': {
+        name: 'EDPM',
+        type: 'edpm',
+        icon: ProductIconEDPM,
+    }
 }
 
 
