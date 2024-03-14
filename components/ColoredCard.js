@@ -12,7 +12,7 @@ export default function ColoredCard ({ children, color, className, onClick }) {
         purple: 'bg-purple-100 border-purple-500 text-purple-500',
     };
 
-    const classNames = `p-4 rounded-xl border-2 ${className ?? ''} ${colors[color] ?? colors['blue']}`;
+    const classNames = `hover:opacity-50 cursor-pointer p-4 rounded-xl border-2 ${className ?? ''} ${colors[color] ?? colors['blue']}`;
 
     return <div className={`${classNames}`} onClick={onClick}>
         {children}
