@@ -37,6 +37,8 @@ const statusBadgeMap = (sd) => {
         case 'partial_approval':
         case 'partial':
         case 'partially_accepted':
+        case 'partially_validated':
+        case 'partially_approved':
             return <Badge variant="warning" className="text-white">Validé partiellement</Badge>;
         case 'manual':
         case 'pending':
@@ -56,4 +58,4 @@ const statusBadgeMap = (sd) => {
     }
 };
 
-export { supportingDocumentIcons, statusBadgeMap };
+export {supportingDocumentIcons, statusBadgeMap};
