@@ -71,9 +71,9 @@ export default function Login({ params }) {
 
     return <>
 
-        <Page>
+        <Page centeredVertically={true}>
 
-            <div className="flex flex-col justify-center max-w-sm mx-auto">
+            <div className="flex flex-col justify-center max-w-md mx-auto">
                 <div className="flex flex-row justify-center">
                     <Image src="/logo.svg" width={200} height={200} alt="" />
                 </div>
@@ -90,15 +90,11 @@ export default function Login({ params }) {
                     <InputField value={fields.email} type="email" placeholder="Email" onChange={handleChange} name="email" error={fields.email?.length > 0  ? errors.email : null} />
                 </div>
 
-                <Button variant="primary" className="w-full mt-4" disabled={!canSubmit()} onClick={handleSubmit} isLoading={isSubmitting}>
-                    Se connecter
-                </Button>
 
-                {/* <div className="flex flex-row justify-center gap-2 mt-16">
-                    <Link href="/auth/forgot-password" className="text-blue-800 underline underline-offset-[3px]" >
-                        Mot de passe oublié ?
-                    </Link>
-                </div> */}
+
+                <Button variant="primary" className="w-full mt-4" disabled={!canSubmit()} onClick={handleSubmit} isLoading={isSubmitting}>
+                    Me connecter
+                </Button>
 
             </div>
 

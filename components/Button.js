@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Button ({ variant, size = 'md', form, type = 'button', label, className, disabled, children, onClick, isLoading, isChecked = null, isFullWidth = false }) {
 
-    let baseStyle = 'relative flex flew-row justify-center gap-2 items-center rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500';
+    let baseStyle = 'relative leading-[15.6px] flex flew-row justify-center gap-2 items-center rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500';
 
     let variantStyle = {
-        primary: 'text-white bg-primary border border-transparent hover:bg-red-700 focus:ring-red-500',
+        primary: 'text-white bg-primary border border-primary hover:bg-red-700 focus:ring-red-500',
         outline_primary: 'text-primary bg-white border border-primary hover:bg-red-50 focus:ring-red-500',
         choice: 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-gray-500',
         link: 'text-gray-700 bg-white border border-transparent hover:bg-gray-50 focus:ring-gray-500',
@@ -14,7 +14,7 @@ export default function Button ({ variant, size = 'md', form, type = 'button', l
 
     let sizeStyle = {
         sm: 'px-4 py-2 text-sm',
-        md: 'px-2 py-4 text-xs font-bold',
+        md: ' py-4 text-[13px] font-bold',
         lg: 'px-6 py-4 text-lg',
     };
 

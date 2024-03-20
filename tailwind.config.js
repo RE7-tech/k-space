@@ -23,7 +23,7 @@ module.exports = {
         'gray-300': 'rgba(172, 172, 172, 1)',
         'blue-200': 'rgba(220, 226, 250, 1)',
         'red-600': 'rgba(246, 52, 99, 1)',
-        'gray-100': 'rgba(87, 87, 87, 1)'
+        'gray-100': '#EAEAEA'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

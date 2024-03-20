@@ -20,16 +20,24 @@ export function PolicyIcon({ width, height }) {
 
 export function ClaimIcon({ width, height }) {
     return <svg width={width} height={height} viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M7.25 17.374L8.375 11.749L3.875 10.0615L11.75 1.62402L10.625 7.24902L15.125 8.93652L7.25 17.374Z"
-            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>;
+        <path d="M7.25 17.374L8.375 11.749L3.875 10.0615L11.75 1.62402L10.625 7.24902L15.125 8.93652L7.25 17.374Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
 }
 
-export function QuoteIcon({ width, height }) {
+export function QuoteIcon({width, height}) {
     return <svg width={width} height={height} viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
-            d="M7.25 17.374L8.375 11.749L3.875 10.0615L11.75 1.62402L10.625 7.24902L15.125 8.93652L7.25 17.374Z"
-            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>;
+            d="M14.5626 16.25H4.43701C4.28783 16.25 4.14475 16.1907 4.03926 16.0853C3.93377 15.9798 3.87451 15.8367 3.87451 15.6875V3.3125C3.87451 3.16332 3.93377 3.02024 4.03926 2.91475C4.14475 2.80926 4.28783 2.75 4.43701 2.75H11.1876L15.1251 6.6875V15.6875C15.1251 15.7614 15.1105 15.8345 15.0822 15.9028C15.054 15.971 15.0125 16.033 14.9603 16.0853C14.9081 16.1375 14.8461 16.1789 14.7778 16.2072C14.7096 16.2355 14.6364 16.25 14.5626 16.25Z"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M11.1875 2.75V6.6875H15.1256" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round"/>
+        <path d="M10.6105 12.2988L11.7355 13.4238" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round"/>
+        <path
+            d="M9.21838 12.875C10.3057 12.875 11.1871 11.9936 11.1871 10.9062C11.1871 9.81894 10.3057 8.9375 9.21838 8.9375C8.13107 8.9375 7.24963 9.81894 7.24963 10.9062C7.24963 11.9936 8.13107 12.875 9.21838 12.875Z"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
 }

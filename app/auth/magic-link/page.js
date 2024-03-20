@@ -37,7 +37,7 @@ export default function MagicLink({ params }) {
 
     return <>
         <Page>
-            <div className="flex flex-col justify-center max-w-sm mx-auto">
+            <div className="flex flex-col justify-center max-w-xl mx-auto">
 
                 <div className="flex flex-row justify-center mb-8">
                     <Image alt="" src={MagicLinkImg} height={123} />

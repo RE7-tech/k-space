@@ -59,7 +59,7 @@ export default function SupportingDocuments({ params }) {
         console.log('sd', sd);
         console.log('category', category);
 
-        if (['validated', 'accepted', 'pending'].includes(sd?.status?.toLowerCase())) {
+        if (['validated', 'accepted', 'pending', 'approved', 'approved_auto'].includes(sd?.status?.toLowerCase())) {
             setOpenSupportingDocumentViewer(sd);
         } else {
             setOpenSupportingDocumentModal(sd);

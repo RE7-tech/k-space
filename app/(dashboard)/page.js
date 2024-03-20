@@ -67,7 +67,7 @@ export default function Home() {
             Ici, vous pouvez tout piloter : vos contrats, vos sinistres, vos informations et échanger avec nous à la moindre interrogation ❤️
           </Alert> : null}
 
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-[22px] font-bold">
             Bonjour <br className="sm:hidden" />
             <Highlight>{ucfirst(customer?.firstname?.toLowerCase())}</Highlight> ! 👋
           </h1>
@@ -80,7 +80,7 @@ export default function Home() {
                 <div className="flex justify-between items-center mb-4">
 
                   <div className="flex items-center gap-2">
-                    <span className='text-3xl font-bold'>
+                    <span className='text-lg font-medium font-poppins'>
                       Mes contrats
                     </span>
 
@@ -110,7 +110,7 @@ export default function Home() {
                 <div className="flex justify-between items-center mb-4">
 
                   <div className="flex items-center gap-2">
-                    <span className='text-3xl font-bold'>
+                    <span className='text-lg font-medium font-poppins'>
                       Mes devis
                     </span>
 
@@ -146,7 +146,7 @@ export default function Home() {
                 <div className="flex justify-between items-center mb-4">
 
                   <div className="flex items-center gap-2">
-                    <span className='text-3xl font-bold'>
+                    <span className='text-lg font-medium font-poppins'>
                       Mes sinistres
                     </span>
 
@@ -175,7 +175,7 @@ export default function Home() {
                 <div className="flex justify-between items-center mb-4">
 
                   <div className="flex items-center gap-2">
-                    <span className='text-3xl font-bold'>
+                    <span className='text-lg font-medium font-poppins'>
                       Mes services plus
                     </span>
                   </div>
