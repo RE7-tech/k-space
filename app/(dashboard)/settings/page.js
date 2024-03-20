@@ -60,11 +60,21 @@ export default function Settings({params}) {
             if (response.status === 200) {
                 setIsEmailChanged(true);
             } else {
-                setIsEmailChangeError(true);
+                setIsEmailChangeError('Une erreur est survenue lors de la modification de votre adresse e-mail.');
             }
         } catch (error) {
             console.log(error);
-            setIsEmailChangeError(true);
+
+            // check the string error code returned by the api
+            if (error?.response?.data?.code === 'email_in_use') {
+                setIsEmailChangeError('Cette adresse e-mail est déjà utilisée par un autre utilisateur. Contactez-nous.');
+            } else if (error?.response?.data?.code === 'same_email') {
+                setIsEmailChangeError('Cette adresse e-mail est identique à votre adresse e-mail actuelle.');
+            } else {
+
+                setIsEmailChangeError('Une erreur est survenue lors de la modification de votre adresse e-mail.');
+
+            }
         } finally {
             setIsEmailChangeLoading(false);
         }
@@ -143,17 +153,18 @@ export default function Settings({params}) {
                         <form className="flex flex-col gap-4" onSubmit={handleSubmitEmailChange} id="emailForm">
 
                             <label htmlFor="email">Nouvelle adresse e-mail</label>
-                            <input type="email" placeholder="" className="border border-gray-300 rounded-md p-2" onChange={(e) => setEmail(e.target.value)} />
+                            <input type="email" placeholder="" className="border border-gray-300 rounded-md p-2"
+                                   onChange={(e) => setEmail(e.target.value)}/>
 
                             {isEmailChanged && <Alert variant="success" className="mb-4">
                                 Un lien de confirmation a été envoyé à votre nouvelle adresse e-mail.
                             </Alert>}
 
                             {isEmailChangeError && <Alert variant="error" className="mb-4">
-                                Une erreur est survenue lors de la modification de votre adresse e-mail.
+                                {isEmailChangeError}
                             </Alert>}
 
-                            <Button variant="primary"  type="submit">
+                            <Button variant="primary" type="submit">
                                 Envoyer un lien de confirmation à cette adresse
                             </Button>
                         </form>

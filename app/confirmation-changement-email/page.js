@@ -34,7 +34,9 @@ export default function ConfirmationChangementEmail () {
 
     React.useEffect(() => {
         sendConfirmationEmail().then(() => {
-            router.push('/');
+            setTimeout(() => {
+                router.push('/');
+            }, 1500);
         });
     }, []);
 
