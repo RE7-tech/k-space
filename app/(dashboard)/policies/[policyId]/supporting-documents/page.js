@@ -3,20 +3,20 @@
 import Highlight from "@/components/Highlight";
 import Page from "@/components/Page";
 import PageTitle from "@/components/PageTitle";
-import { faEye, faInfoCircle, faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faEye, faInfoCircle, faSpinner} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import ThreeStarsIcon from "@/public/misc/threestars.svg";
 import DesktopTopbar from "@/components/DesktopTopbar";
 import Card from "@/components/Card";
 import SupportingDocumentListItem from "@/components/SupportingDocumentListItem";
 import usePolicySupportingDocuments from "@/hooks/usePolicySupportingDocuments";
-import { useState } from "react";
+import {useState} from "react";
 import SupportingDocumentModal from "@/components/SupportingDocumentModal";
 import SupportingDocumentViewerModal from "@/components/SupportingDocumentViewerModal";
 import usePolicy from "@/hooks/usePolicy";
 
-export function SupportingDocumentsCategory({ category, onItemClick }) {
+export function SupportingDocumentsCategory({category, onItemClick}) {
 
     const supportingDocuments = (category.supporting_documents ?? []);
 
@@ -37,23 +37,25 @@ export function SupportingDocumentsCategory({ category, onItemClick }) {
         </>}>
             <div className="flex flex-col gap-4">
                 {supportingDocuments.map((sd, idx) => {
-                    return <SupportingDocumentListItem key={idx} supportingDocument={sd} hasBorderBottom={idx < supportingDocuments.length - 1} onClick={() => handleItemClick(sd)} />
+                    return <SupportingDocumentListItem key={idx} supportingDocument={sd}
+                                                       hasBorderBottom={idx < supportingDocuments.length - 1}
+                                                       onClick={() => handleItemClick(sd)}/>
                 })}
             </div>
         </Card>
     </>
 }
 
-export default function SupportingDocuments({ params }) {
+export default function SupportingDocuments({params}) {
 
     const policyId = params?.policyId;
 
-    const { policy, loading: policyLoading, error: policyError } = usePolicy(params?.policyId);
+    const {policy, loading: policyLoading, error: policyError} = usePolicy(params?.policyId);
 
     const [openSupportingDocumentModal, setOpenSupportingDocumentModal] = useState(false);
     const [openSupportingDocumentViewer, setOpenSupportingDocumentViewer] = useState(false);
 
-    const { policySupportingDocuments, loading, error, mutate } = usePolicySupportingDocuments(params?.policyId);
+    const {policySupportingDocuments, loading, error, mutate} = usePolicySupportingDocuments(params?.policyId);
 
     const handleItemClick = (sd, category) => {
         console.log('sd', sd);
@@ -82,32 +84,38 @@ export default function SupportingDocuments({ params }) {
         <Page>
 
             {openSupportingDocumentModal !== false ? <>
-                <SupportingDocumentModal policy={policy} onClose={() => setOpenSupportingDocumentModal(false)} supportingDocument={openSupportingDocumentModal} onChange={handleSupportingDocumentStatesChange} />
+                <SupportingDocumentModal policy={policy} onClose={() => setOpenSupportingDocumentModal(false)}
+                                         supportingDocument={openSupportingDocumentModal}
+                                         onChange={handleSupportingDocumentStatesChange}/>
             </> : null}
 
             {openSupportingDocumentViewer !== false ? <>
-                <SupportingDocumentViewerModal policy={policy} supportingDocument={openSupportingDocumentViewer} onClose={() => setOpenSupportingDocumentViewer(false)} />
+                <SupportingDocumentViewerModal policy={policy} supportingDocument={openSupportingDocumentViewer}
+                                               onClose={() => setOpenSupportingDocumentViewer(false)}/>
             </> : null}
 
             <DesktopTopbar breadcrumbs={[
-                { name: 'Mes contrats', href: '/policies' },
-                { name: 'Mon contrat', href: '/policies/' + policyId },
-                { name: 'Mes justificatifs', href: '/policies/' + policyId + '/supporting-documents' },
-            ]} />
+                {name: 'Mes contrats', href: '/policies'},
+                {name: 'Mon contrat', href: '/policies/' + policyId},
+                {name: 'Mes justificatifs', href: '/policies/' + policyId + '/supporting-documents'},
+            ]}/>
 
             <div className="flex flex-row justify-between items-center mt-8">
 
                 <PageTitle subtitleClassName={`text-sm font-normal`} subtitle={<>
-                    {isAllSupportingDocumentsAreSendedOrValidated() ? <>
-                        Votre dossier est complet. BRAVO ! </> : <>
-                        Votre dossier n'est pas complet. Vous devez encore envoyer des justificatifs.
-                    </>}
+                    {!loading ? <>
+                        {isAllSupportingDocumentsAreSendedOrValidated() ? <>
+                            Votre dossier est complet. BRAVO ! </> : <>
+                            Votre dossier n'est pas complet. Vous devez encore envoyer des justificatifs.
+                        </>}
+                    </> : null}Ò
                 </>}>
-                    Mes <Highlight>justificatifs</Highlight> <FontAwesomeIcon icon={faInfoCircle} width={18} height={18} className="text-gray-400" />
+                    Mes <Highlight>justificatifs</Highlight> <FontAwesomeIcon icon={faInfoCircle} width={18} height={18}
+                                                                              className="text-gray-400"/>
                 </PageTitle>
 
                 <div className="rounded-full border-2 border-gray-300 p-2">
-                    <Image src={ThreeStarsIcon} alt="" width={96} height={9} />
+                    <Image src={ThreeStarsIcon} alt="" width={96} height={9}/>
                 </div>
 
             </div>
@@ -117,7 +125,7 @@ export default function SupportingDocuments({ params }) {
 
                     {loading ? <>
                         <div className="flex items-center justify-center flex-col gap-4">
-                            <FontAwesomeIcon icon={faSpinner} size="2x" className="text-gray-400" />
+                            <FontAwesomeIcon icon={faSpinner} size="2x" className="text-gray-400"/>
                             <p>
                                 Chargement, veuillez patienter...
                             </p>
@@ -126,7 +134,8 @@ export default function SupportingDocuments({ params }) {
 
                     {(Object.entries(policySupportingDocuments ?? {}))?.map(([key, category], idx) => {
                         console.log('category', category);
-                        return <SupportingDocumentsCategory key={idx} category={category} onItemClick={handleItemClick} />
+                        return <SupportingDocumentsCategory key={idx} category={category}
+                                                            onItemClick={handleItemClick}/>
                     })}
 
                 </div>

@@ -60,7 +60,15 @@ export default function Settings({params}) {
             if (response.status === 200) {
                 setIsEmailChanged(true);
             } else {
-                setIsEmailChangeError('Une erreur est survenue lors de la modification de votre adresse e-mail.');
+                if (response?.data?.code === 'email_in_use') {
+                    setIsEmailChangeError('Cette adresse e-mail est déjà utilisée par un autre utilisateur. Contactez-nous.');
+                } else if (response?.data?.code === 'same_email') {
+                    setIsEmailChangeError('Cette adresse e-mail est identique à votre adresse e-mail actuelle.');
+                } else {
+
+                    setIsEmailChangeError('Une erreur est survenue lors de la modification de votre adresse e-mail.');
+
+                }
             }
         } catch (error) {
             console.log(error);
