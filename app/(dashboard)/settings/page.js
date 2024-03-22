@@ -34,7 +34,7 @@ export default function Settings({params}) {
 
         try {
             await updateCustomer(customer?.id, {
-                password: data.new_password,
+                new_password: data.new_password,
             });
 
             setIsPasswordUpdated(true);
