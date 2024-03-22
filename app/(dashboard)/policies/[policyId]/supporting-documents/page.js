@@ -108,7 +108,7 @@ export default function SupportingDocuments({params}) {
                             Votre dossier est complet. BRAVO ! </> : <>
                             Votre dossier n'est pas complet. Vous devez encore envoyer des justificatifs.
                         </>}
-                    </> : null}Ò
+                    </> : null}
                 </>}>
                     Mes <Highlight>justificatifs</Highlight> <FontAwesomeIcon icon={faInfoCircle} width={18} height={18}
                                                                               className="text-gray-400"/>
