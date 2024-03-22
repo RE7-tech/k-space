@@ -135,10 +135,6 @@ export default function Settings({params}) {
 
                         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)} id="passwordForm">
 
-                            <label htmlFor="old_password">Ancien mot de passe</label>
-                            <input type="password" placeholder=""
-                                   className="border border-gray-300 rounded-md p-2" {...register('old_password', {required: true})} />
-
                             <label htmlFor="new_password">Nouveau mot de passe</label>
                             <input type="password" placeholder=""
                                    className="border border-gray-300 rounded-md p-2" {...register('new_password', {required: true})} />
