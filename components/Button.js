@@ -14,7 +14,7 @@ export default function Button ({ variant, size = 'md', form, type = 'button', l
 
     let sizeStyle = {
         sm: 'px-4 py-2 text-sm',
-        md: ' py-4 text-[13px] font-bold',
+        md: ' py-4 px-4 text-[13px] font-bold',
         lg: 'px-6 py-4 text-lg',
     };
 

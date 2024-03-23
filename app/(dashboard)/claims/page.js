@@ -80,11 +80,11 @@ export default function Claims({ params }) {
                         <span className="text-gray-400">
                             Ouf ! Vous n'avez pas de sinistre en cours.
                         </span>
-                        <div className="flex flex-col items-center justify-center gap-4">
+
                             <Button variant={'outline_primary'} onClick={() => router.push('/claims/new')}>
                                 Déclarer un sinistre
                             </Button>
-                        </div>
+
                     </div>}
                 </div>
             </div>
