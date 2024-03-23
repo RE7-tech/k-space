@@ -200,7 +200,7 @@ export default function Policy({ params }) {
                                     <FontAwesomeIcon icon={faCalendar} width={32} height={32} className="text-blue-800" />
                                 </div>
                                 <div className="text-gray-500 text-md">
-                                    {getNextPaymentDate(policy)}
+                                    {formatDate(policy?.start_date)}
                                 </div>
                             </div>
 
