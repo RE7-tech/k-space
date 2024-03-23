@@ -37,7 +37,7 @@ export default function MobileNav({ isAnimated = true }) {
             isActive: pathName?.startsWith('/policies'),
         },
         {
-            name: "Claims",
+            name: "Sinistres",
             icon: <FontAwesomeIcon icon={faExclamationTriangle} width={20} height={20} fontSize={20} />,
             href: '/claims',
             isActive: pathName?.startsWith('/claims'),
