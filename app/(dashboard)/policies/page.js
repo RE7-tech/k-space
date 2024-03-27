@@ -22,7 +22,7 @@ export default function Policies({ params }) {
         //alert('handlePolicyClick' + policy?.status);
 
         if (policy.status?.toLowerCase() === "pending") {
-            router.push(`${config.app.subscriptionUrl}/recapitulatif/${policy?.id}`);
+            router.push(`${config.app.subscriptionUrl}/recapitulatif/${policy?.quote_id}`);
         } else {
             router.push(`/policies/${policy?.id}`);
 
