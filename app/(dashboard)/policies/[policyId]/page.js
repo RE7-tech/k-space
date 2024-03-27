@@ -151,7 +151,7 @@ export default function Policy({params}) {
                         </div>
                     </Alert> : null}
 
-                    {getPolicyBalance() < -5 ? <Alert variant="info" clickable={true} onClick={() => {
+                    {getPolicyBalance() < -5 ? <Alert variant="warning" clickable={true} onClick={() => {
                         router.push('/regulariser/' + policyId);
                     }}>
                         <div className={'flex flex-col gap-1'}>
