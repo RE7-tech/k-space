@@ -160,7 +160,7 @@ export default function Policy({params}) {
                                 Paiement en attente
                             </div>
                             <p>
-                                Votre prochaine échéance est en attente de paiement ({ Math.abs(getPolicyBalance()).toFixed(2) }€). Cliquez ici pour régulariser votre
+                                Vous avez un paiement en attente ({ Math.abs(getPolicyBalance()).toFixed(2) }€). Cliquez ici pour régulariser votre
                                 situation <FontAwesomeIcon icon={faChevronRight} width={18} height={18} className=""/>
                             </p>
                         </div>
@@ -277,7 +277,7 @@ export default function Policy({params}) {
                     </div>
                 </div>
 
-            </> : <Alert variant="info" clickable={true} onClick={() => {
+            </> : <Alert variant="warning" clickable={true} onClick={() => {
                 router.push(`${config.app.subscriptionUrl}/recapitulatif/${policy?.quote_id}`);
             }}>
                 <div className="flex items-center gap-1">
