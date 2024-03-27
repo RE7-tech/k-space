@@ -9,7 +9,7 @@ import { useState, useRef, useEffect } from "react";
 import InputField from "@/components/InputField";
 import { getPolicy } from "@/lib/api/policies";
 import { useRouter } from "next/navigation";
-import { createTermination } from "@/lib/api/terminations";
+import {createTermination, getCustomerTerminationReasons} from "@/lib/api/terminations";
 import { addTerminationAttachment } from "@/lib/api/terminations";
 import Loader from "@/components/Loader";
 
@@ -25,9 +25,10 @@ export default function Resiliation({ params }) {
         { value: 'Je change d\'assureur', label: 'Je change d\'assureur', product_type: ['cyclo', 'moto', 'vsp'] },
         { value: 'Je change de véhicule', label: 'Je change de véhicule', product_type: ['cyclo', 'moto', 'vsp'], is_pv_needed: true, is_grey_card_needed: true },
         { value: 'Retraction', label: 'Je me rétracte', product_type: ['cyclo', 'moto', 'vsp'] },
-        { value: 'Déménagement', label: 'Je déménage', product_type: ['mrh', 'home', 'habitation'] },
-        { value: 'Loi chatel', label: 'Je souhaite résilier dans le cadre de la loi Chatel', product_type: ['mrh', 'home', 'habitation'] },
-        { value: 'À Échéance', label: 'Je souhaite résilier à l\'échéance', product_type: ['mrh', 'home', 'habitation'] },
+        { value: 'Déménagement', label: 'Je déménage', product_type: ['mrh', 'home', 'habitation', 'cyclo', 'moto', 'vsp'] },
+        { value: 'Loi chatel', label: 'Je souhaite résilier dans le cadre de la loi Chatel', product_type: ['mrh', 'home', 'habitation', 'cyclo', 'moto', 'vsp'] },
+        { value: 'À Échéance', label: 'Je souhaite résilier à l\'échéance', product_type: ['mrh', 'home', 'habitation', 'cyclo', 'moto', 'vsp'] },
+        { value: "Refus d'avenant", label: "Refus d'aventant", product_type: ['mrh', 'home', 'habitation', 'cyclo', 'moto', 'vsp'] },
     ]);
 
     const hasFile = (name) => {
@@ -118,8 +119,18 @@ export default function Resiliation({ params }) {
         }
     }
 
+    const loadReasons = async () => {
+        try {
+            const reasons = await getCustomerTerminationReasons();
+            setReasons(reasons.data?.data);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     useEffect(() => {
         loadPolicy();
+        loadReasons();
     }, []);
 
     useEffect(() => {
