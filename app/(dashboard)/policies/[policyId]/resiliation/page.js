@@ -28,7 +28,7 @@ export default function Resiliation({ params }) {
         { value: 'Déménagement', label: 'Je déménage', product_type: ['mrh', 'home', 'habitation', 'cyclo', 'moto', 'vsp'] },
         { value: 'Loi chatel', label: 'Je souhaite résilier dans le cadre de la loi Chatel', product_type: ['mrh', 'home', 'habitation', 'cyclo', 'moto', 'vsp'] },
         { value: 'À Échéance', label: 'Je souhaite résilier à l\'échéance', product_type: ['mrh', 'home', 'habitation', 'cyclo', 'moto', 'vsp'] },
-        { value: "Refus d'avenant", label: "Refus d'aventant", product_type: ['mrh', 'home', 'habitation', 'cyclo', 'moto', 'vsp'] },
+        { value: "Refus d'avenant", label: "Refus d'avenant", product_type: ['mrh', 'home', 'habitation', 'cyclo', 'moto', 'vsp'] },
     ]);
 
     const hasFile = (name) => {
