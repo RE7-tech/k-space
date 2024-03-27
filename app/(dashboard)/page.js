@@ -96,9 +96,9 @@ export default function Home() {
               </>}>
                 <div className="flex justify-center items-center mb-4 gap-4 overflow-x-auto">
 
-                  {(policies ?? []).filter((policy, idx) => idx < 3).map((policy, idx) => <PolicySmallCard key={idx} policy={policy} onClick={() => handlePolicyClick(policy)} />)}
+                  {(policies ?? []).filter((policy, idx) => idx < 2).map((policy, idx) => <PolicySmallCard key={idx} policy={policy} onClick={() => handlePolicyClick(policy)} />)}
 
-                  {policies?.length === 0 ? <div className="flex flex-col items-center justify-center gap-4 text-center">
+                  {policies?.length === 0 && !isPoliciesLoading ? <div className="flex flex-col items-center justify-center gap-4 text-center">
                     Vous n'avez pas de contrat en cours.
                   </div> : null}
                 </div>
@@ -125,8 +125,8 @@ export default function Home() {
                 </div>
               </>}>
                 <div className="flex flex-col gap-4">
-                  {(quotes ?? []).filter((quote, idx) => idx < 3).map((quote, idx) => <QuoteSmallCard key={idx} quote={quote} onClick={() => handleQuoteClick(quote)} />)}
-                  {quotes?.length === 0 ? <div className="flex flex-col items-center justify-center gap-4">
+                  {(quotes ?? []).filter((quote, idx) => idx < 2).map((quote, idx) => <QuoteSmallCard key={idx} quote={quote} onClick={() => handleQuoteClick(quote)} />)}
+                  {quotes?.length === 0 && isQuotesLoading ? <div className="flex flex-col items-center justify-center gap-4">
                     Vous n'avez pas de devis en cours.
                   </div> : null}
                 </div>

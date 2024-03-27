@@ -159,7 +159,7 @@ export default function Policy({params}) {
                             Paiement en attente
                         </div>
                         <p>
-                            Votre prochaine échéance est en attente de paiement ({ getPolicyBalance().toFixed(2) }€). Cliquez ici pour régulariser votre
+                            Votre prochaine échéance est en attente de paiement ({ Math.abs(getPolicyBalance()).toFixed(2) }€). Cliquez ici pour régulariser votre
                             situation <FontAwesomeIcon icon={faChevronRight} width={18} height={18} className=""/>
                         </p>
                     </div>
