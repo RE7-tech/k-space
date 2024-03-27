@@ -173,7 +173,7 @@ export default function Policy({params}) {
                     </Alert> : null}
 
                     {isSignatureMissing() ? <Alert variant="warning" clickable={true} onClick={() => {
-                            router.push(`${config.app.subscriptionUrl}/contrats/${policy?.id}/signature`);
+                            router.push(`${config.app.subscriptionUrl}/etapes/contrats/${policy?.id}/signature`);
                         }}>
                             <div className={'flex flex-col gap-1'}>
                                 <div className="flex  items-start items-center text-lg font-semibold">
