@@ -119,6 +119,10 @@ export default function Policy({params}) {
         return parseFloat(policy?.balance ?? 0);
     }
 
+    const isSignatureMissing = () => {
+        return policy?.is_signed === false;
+    }
+
     return <>
         <Page>
 
@@ -130,7 +134,8 @@ export default function Policy({params}) {
             {policy?.status?.toLowerCase() !== "pending" ? <>
 
                 {(policy.is_unpaid ?? false) ? <Alert variant="danger">
-                    Le paiement de votre assurance n'a pas pu être effectué. Veuillez mettre à jour votre moyen de paiement.
+                    Le paiement de votre assurance n'a pas pu être effectué. Veuillez mettre à jour votre moyen de
+                    paiement.
                 </Alert> : null}
 
                 {hasPendingTermination() ? <Alert variant="info">
@@ -160,11 +165,28 @@ export default function Policy({params}) {
                                 Paiement en attente
                             </div>
                             <p>
-                                Vous avez un paiement en attente ({ Math.abs(getPolicyBalance()).toFixed(2) }€). Cliquez ici pour régulariser votre
+                                Vous avez un paiement en attente ({Math.abs(getPolicyBalance()).toFixed(2)}€). Cliquez
+                                ici pour régulariser votre
                                 situation <FontAwesomeIcon icon={faChevronRight} width={18} height={18} className=""/>
                             </p>
                         </div>
                     </Alert> : null}
+
+                    {isSignatureMissing() ? <Alert variant="warning" clickable={true} onClick={() => {
+                            router.push(`${config.app.subscriptionUrl}/contrats/${policy?.id}/signature`);
+                        }}>
+                            <div className={'flex flex-col gap-1'}>
+                                <div className="flex  items-start items-center text-lg font-semibold">
+                                    <FontAwesomeIcon icon={faExclamationTriangle} width={24} height={24} className="me-4"/>
+                                    Signature en attente
+                                </div>
+                                <p>
+                                    Vous n'avez pas encore signé votre contrat. Cliquez ici pour le signer
+                                    <FontAwesomeIcon icon={faChevronRight} width={18} height={18} className=""/>
+                                </p>
+                            </div>
+                        </Alert>
+                        : null}
                 </div>
 
                 <div className="flex flex-row justify-between items-center">
@@ -185,11 +207,13 @@ export default function Policy({params}) {
                                     className="absolute top-8 right-0 bg-white shadow-lg rounded-lg p-4 w-[250px] z-50">
                                     <div className="flex flex-col gap-2 w-full">
 
-                                        <div className="flex flex-row items-center gap-2 cursor-pointer hover:text-gray-800"
-                                             onClick={() => {
-                                                 router.push('/policies/' + policyId + '/resiliation');
-                                             }}>
-                                            <FontAwesomeIcon icon={faBan} width={24} height={24} className="text-pink-500"/>
+                                        <div
+                                            className="flex flex-row items-center gap-2 cursor-pointer hover:text-gray-800"
+                                            onClick={() => {
+                                                router.push('/policies/' + policyId + '/resiliation');
+                                            }}>
+                                            <FontAwesomeIcon icon={faBan} width={24} height={24}
+                                                             className="text-pink-500"/>
                                             <span>
                                                 Résilier mon contrat
                                             </span>
@@ -220,7 +244,8 @@ export default function Policy({params}) {
                                 <div className="flex flex-col items-center gap-2">
                                     <div
                                         className="rounded-full border-2 border-blue-800 p-4 w-[38px] h-[38px] flex items-center justify-center bg-gray-100">
-                                        <FontAwesomeIcon icon={faShield} width={32} height={32} className="text-blue-800"/>
+                                        <FontAwesomeIcon icon={faShield} width={32} height={32}
+                                                         className="text-blue-800"/>
                                     </div>
                                     <div className="text-md text-blue-default font-semibold opacity-60">
                                         {ucfirst(policy?.formula?.name ?? '...')}
@@ -271,7 +296,8 @@ export default function Policy({params}) {
                                         {quickLink.name}
                                     </span>
                                 </div>
-                                <FontAwesomeIcon icon={faChevronRight} width={18} height={18} className="text-gray-400"/>
+                                <FontAwesomeIcon icon={faChevronRight} width={18} height={18}
+                                                 className="text-gray-400"/>
                             </div>
                         })}
                     </div>
@@ -281,7 +307,8 @@ export default function Policy({params}) {
                 router.push(`${config.app.subscriptionUrl}/recapitulatif/${policy?.quote_id}`);
             }}>
                 <div className="flex items-center gap-1">
-                    Vous n'avez pas terminé la souscription de votre contrat. Cliquez ici pour la finaliser. <FontAwesomeIcon icon={faChevronRight} width={18} height={18} className=""/>
+                    Vous n'avez pas terminé la souscription de votre contrat. Cliquez ici pour la
+                    finaliser. <FontAwesomeIcon icon={faChevronRight} width={18} height={18} className=""/>
                 </div>
             </Alert>}
 
