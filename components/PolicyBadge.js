@@ -7,13 +7,19 @@ export default function PolicyBadge ({ policy }) {
     const statusClasses = {
         pending: 'bg-blue-200',
         active: 'bg-success-dark',
-        inactive: 'bg-red-200'
+        inactive: 'bg-red-200',
+        terminated: 'bg-red-200',
+        suspended: 'bg-yellow-200',
+        expired: 'bg-red-200',
     };
 
     const statusTranslation = {
         pending: 'En attente',
         active: 'Activée',
-        inactive: 'Inactivée'
+        inactive: 'Inactivée',
+        terminated: 'Terminée',
+        suspended: 'Suspendue',
+        expired: 'Expirée',
     };
 
     const statusIcons = {

@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import usePolicies from "@/hooks/useCustomerPolicies";
 import Spinner from "@/components/Spinner";
 import Alert from "@/components/Alert";
+import config from "@/utils/config";
 
 export default function Policies({ params }) {
 
@@ -17,7 +18,18 @@ export default function Policies({ params }) {
     const { policies, isLoading, isError } = usePolicies();
 
     const handlePolicyClick = (policy) => {
-        return router.push(`/policies/${policy?.id}`);
+
+        //alert('handlePolicyClick' + policy?.status);
+
+        if (policy.status?.toLowerCase() === "pending") {
+            router.push(`${config.app.subscriptionUrl}/recapitulatif/${policy?.id}`);
+        } else {
+            router.push(`/policies/${policy?.id}`);
+
+        }
+
+
+
     }
 
     const distinctPoliciesProducts = () => {

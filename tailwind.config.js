@@ -32,6 +32,7 @@ module.exports = {
       fontFamily: {
         'sans': ['Figtree', 'sans-serif', ...defaultTheme.fontFamily.sans],
         'figtree': ['Figtree', 'sans-serif'],
+        'poppins': ['var(--font-poppins)', 'sans-serif'],
       },
       fontSize: {
         'xs': '0.8125rem',

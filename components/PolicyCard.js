@@ -18,7 +18,7 @@ export default function PolicyCard({ policy, onClick, className }) {
         return <>
             <div onClick={onClick} className={`relative bg-white rounded-lg border-2 border-gray-200 p-4 gap-4 flex flex-col items-center justify-between cursor-pointer hover:opacity-50 ${className ?? ''}`}>
                 <div className={`absolute top-0 right-0 ${policy?.status === 'active' ? 'success-dark' : 'blue-500'} text-white px-2 py-1 rounded-bl-lg rounded-tr-lg uppercase text-xs font-bold`}>
-                    {ucfirst(statusLabelMappping[policy?.status ?? 'pending']) ?? statusLabelMappping['default']}
+                    {ucfirst(statusLabelMappping[policy?.status?.toLowerCase() ?? 'pending']) ?? statusLabelMappping['default']}
                 </div>
                 
                 <div className="flex items-center justify-between mb-2 w-full">
