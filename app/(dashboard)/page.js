@@ -39,7 +39,13 @@ export default function Home() {
   }
 
   const handlePolicyClick = (policy) => {
-    router.push(`/policies/${policy?.id}`);
+
+    if (policy.status?.toLowerCase() === "pending") {
+        router.push(`${config.app.subscriptionUrl}/recapitulatif/${policy?.quote_id}`);
+    } else {
+        router.push(`/policies/${policy?.id}`);
+    }
+
   }
 
   const handleQuoteClick = (quote) => {
