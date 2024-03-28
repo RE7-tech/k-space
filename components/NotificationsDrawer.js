@@ -31,13 +31,13 @@ export default function NotificationsDrawer({ children, isOpen = true, onClose, 
     const handleNotificationClick = (notification) => {
         switch (notification.code?.toLowerCase()) {
             case 'pending_quote':
-                router.push('/quotes/' + notification.data.quote_id);
+                router.push('/quotes/' + notification.data?.quote_id);
                 break;
             case 'pending_claim':
-                router.push('/claims/' + notification.data.claim_id);
+                router.push('/claims/' + notification.data?.claim_id);
                 break;
             case 'pending_payment':
-                router.push('/payments/' + notification.data.payment_id);
+                router.push('/payments/' + notification.data?.payment_id);
                 break;
             default:
                 break;
