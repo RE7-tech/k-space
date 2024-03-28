@@ -126,7 +126,7 @@ export default function Policy({params}) {
     }
 
     const isSignatureMissing = () => {
-        return policy?.is_signed === false;
+        return policy?.is_signed === false && policy.status != 'terminated';
     }
 
     return <>
@@ -144,12 +144,18 @@ export default function Policy({params}) {
                     paiement.
                 </Alert> : null}
 
+                {policy?.status?.toLowerCase() === "terminated" ? <Alert variant="danger">
+                    <FontAwesomeIcon icon={faHandDots} width={24} height={24} className="me-4"/>
+                    <span>Votre contrat est résilié depuis le {formatDate(policy?.effective_at)}</span>
+                </Alert> : null}
+
                 {hasPendingTermination() ? <Alert variant="info">
                     <FontAwesomeIcon icon={faWarning} width={24} height={24} className="me-4"/>
                     Demande de résiliation en cours
                 </Alert> : null}
 
                 <div className="flex flex-col gap-4">
+
                     {hasDeclinedTermination() ? <Alert variant="danger">
                         <div className="flex flex-col items-start gap-4">
                             <p>
