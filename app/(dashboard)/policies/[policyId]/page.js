@@ -104,7 +104,13 @@ export default function Policy({params}) {
     const hasDeclinedTermination = () => {
         if (!policy?.terminations) return false;
 
-        return policy?.terminations?.find(termination => termination?.status?.toLowerCase() === 'declined') ?? false;
+        // check if the last termination is declined
+        let sortedTerminations = policy?.terminations?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+        if (sortedTerminations.length === 0) return false;
+
+        // check if the last termination is declined
+        return sortedTerminations?.[0]?.status?.toLowerCase() === 'declined';
     }
 
     const getLastTerminationDeclined = () => {
